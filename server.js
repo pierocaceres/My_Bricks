@@ -4,6 +4,7 @@ const logger = require('morgan')
 const bodyParser = require('body-parser')
 // const AuthRouter = require('./routes/AuthRouter')
 // const PostRouter = require('./routes/PostRouter')
+const AppRouter = require('./routes/AppRouter')
 const app = express()
 
 const PORT = process.env.PORT || 3001
@@ -14,5 +15,6 @@ app.use(bodyParser.json())
 
 // app.use('/auth', AuthRouter)
 // app.use('/posts', PostRouter)
+app.use('/app', AppRouter)
 
 app.listen(PORT, () => console.log(`Server Running On Port: ${PORT}`))

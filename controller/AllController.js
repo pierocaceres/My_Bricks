@@ -1,62 +1,67 @@
-const { User, Lego_set, Comment} = require('../models')
+const { User, Lego_set, Comments} = require('../models')
 const { Op, sequelize, } = require("sequelize");
 
 const GetAllLegoSets = async (req, res) => {
     try {
-        const blogs = await Lego_set.findAll({
+        const sets = await Lego_set.findAll({
           order: [['createdAt', 'DESC']],
           include: [{model: User, attributes: ['username']}]
         })
-        res.send(blogs)
+        res.send(sets)
     }catch (error) {
 
         throw error
     }
 }
 
-const GetLegoSetByUserId = async (req, res) => {
-try {
-  const blog = await Lego_set.findAll({ include: [{model: User, attributes: ['username', 'profilepic']}], where: {author_id: req.params.author_id}})
-  res.send(blog)
-} catch (error) {
- throw error
-}
-}
-
 const GetLegoSetById = async (req, res) => {
     try {
-        const blog = await Lego_set.findOne({
-          where: {id: req.params.blog_id},
+        const set = await Lego_set.findOne({
+          where: {id: req.params.lego_set_id},
           include: [
-            {model: User, attributes: ["username", 'profilepic']},
             {
-              model: Comment,
+              model: User, attributes: ['username']
+            },
+            {
+              model: Comments,
               include: [
                 {
-                  model: User, attributes: ["username", 'profilepic']
+                  model: User, attributes: ['username']
                 }
                 ]},]})
-        res.send(blog)
+        res.send(set)
     } catch (error) {
       throw error
     }
+}
+
+const GetLegoSetByUserId = async (req, res) => {
+  try {
+    const setOfUser = await Lego_set.findAll({ 
+      include: [{model: User, attributes: ['username']}], 
+      where: {user_id: req.params.user_id}
+    })
+    res.send(setOfUser)
+  } catch (error) {
+    throw error
+  }
 }
 
 const CreateLegoSet = async (req, res) => {
-    try {
-      const blog = await Lego_set.create({...req.body})
-      res.send({ msg: 'LegoSet succesfully posted' })
-    } catch (error) {
-      throw error
-    }
+  try {
+    await Lego_set.create({...req.body})
+    res.send({ msg: 'LegoSet succesfully posted' })
+  } catch (error) {
+    throw error
+  }
 }
 
 const EditLegoSet = async (req, res) => {
   try {
-    const upd = req.params.blog_id
-    const blog = await Lego_set.findByPk(upd)
-    blog.update({...req.body})
-    res.send(blog)
+    const update = req.params.lego_set_id
+    const set = await Lego_set.findByPk(update)
+    set.update({...req.body})
+    res.send(set)
   } catch (error) {
     throw error
   }
@@ -64,10 +69,10 @@ const EditLegoSet = async (req, res) => {
 
 const DeleteLegoSet = async (req, res) => {
     try {
-        const del = req.params.blog_id
-        const blog = await Lego_set.findOne({attributes: ["title"], where: { id: del }})
-        await Lego_set.destroy({ where: { id: del }})
-        res.send({message: `Your lego  with a title of "${blog.dataValues.title}" has been deleted`})
+      const remove = req.params.lego_set_id
+      const set = await Lego_set.findOne({attributes: ["name"], where: { id: remove }})
+      await Lego_set.destroy({ where: { id: remove }})
+      res.send({message: `Your lego set titled "${set.dataValues.name}" has been deleted`})
     } catch (error) {
     throw error
     }

@@ -14,8 +14,8 @@ const controller = require('../controller/AllController')
 Router.get('/lego_set/all', controller.GetAllLegoSets)
 //LegoSet Endpoint, Pulls comments, Where user reads article
 Router.get('/lego_set/:lego_set_id', controller.GetLegoSetById)
-//Author Mypage. Find LegoSet by Author Id
-Router.get('/lego_set/author/:author_id', controller.GetLegoSetByUserId)
+//User page. Find LegoSet by Author Id
+Router.get('/lego_set/user/:user_id', controller.GetLegoSetByUserId)
 //Create New LegoSet
 // Router.post('/lego_set/create', middleware.stripToken, middleware.verifyToken, controller.CreateLegoSet)
 Router.post('/lego_set/create', controller.CreateLegoSet)
