@@ -1,7 +1,7 @@
 <template>
     <nav>
         <v-toolbar app>
-            <v-app-bar-nav-icon @click="showDrawer()" class='d-md-none d-lg-flex'></v-app-bar-nav-icon>
+            <v-app-bar-nav-icon @click="showDrawer()" class='d-md-none'></v-app-bar-nav-icon>
             <v-toolbar-title class="text-uppercase">
                 <span class="font-weight-light">My</span>
                 <span>Bricks</span>
