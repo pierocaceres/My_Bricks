@@ -1,10 +1,11 @@
 <template>
     <v-contianer fluid>
+        <h2 class='text-center pt-3'>The Latest</h2>
         <v-layout row wrap justify-space-around>
             <v-row dense>
-                <v-col xs12 s6 md4  v-for='set in legoSets' :key='set.id'>
-                    <v-card class='mx-auto my-12' max-width='375'>
-                        <v-img height='auto' :src='set.picture' :position='center' :background-position='center'></v-img>
+                <v-col xs12 s6 md4 lg3 v-for='set in legoSets' :key='set.id'>
+                    <v-card class='mx-auto my-12' max-width='375' >
+                        <v-img height='auto' contain :src='set.picture' :position='center' :background-position='center'></v-img>
                         <v-divider></v-divider>
                         <v-card-title>{{set.name}}</v-card-title>
                         <v-card-text>
