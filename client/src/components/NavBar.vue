@@ -1,13 +1,13 @@
 <template>
     <nav>
-        <v-app-bar app>
+        <v-app-bar absolute elevate-on-scroll>
             <v-app-bar-nav-icon @click="showDrawer()" class='d-md-none'></v-app-bar-nav-icon>
-            <v-app-bar-title class="text-uppercase">
-                <span class="font-weight-light">My</span>
-                <span>Bricks</span>
+            <v-app-bar-title class="text-uppercase" style="cursor: pointer;" >
+                <span class="font-weight-light" @click="goHome()" :cursor='pointer'>My</span>
+                <span @click="goHome()">Bricks</span>
             </v-app-bar-title>
             <v-spacer></v-spacer>
-            <v-text-field label='search' v-model='search' solo dense prepend-inner-icon='mdi-magnify' class='py-3 mt-6' clearable v-if="user"></v-text-field>
+            <v-text-field label='search' v-model='search' solo dense rounded prepend-inner-icon='mdi-magnify' class='py-3 mt-6' clearable v-if="user"></v-text-field>
             <v-spacer></v-spacer>
                 <div class='d-none d-md-flex' v-for='link in links' :key='link.text' >
                     <v-btn plain v-if="user"> 
@@ -48,7 +48,14 @@ export default {
         showDrawer(){
             if(this.drawer){this.drawer = false}
             else{ this.drawer = true}
-        } 
+        },
+        goHome() {
+            if(this.user){
+                this.$router.push(`/feed`)
+            }else{
+                this.$router.push(`/`)
+            }
+        },
     }
 }
 </script>

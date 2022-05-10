@@ -4,8 +4,8 @@
         <v-layout row wrap justify-space-around>
             <v-row dense>
                 <v-col xs12 s6 md4 lg3 v-for='set in legoSets' :key='set.id'>
-                    <v-card class='mx-auto my-12' max-width='375' >
-                        <v-img height='auto' contain :src='set.picture' :position='center' :background-position='center'></v-img>
+                    <v-card class='mx-auto my-12' max-width='375' @click='goToSet(set.id)'>
+                        <v-img height='200' contain :src='set.picture' :position='center' :background-position='center'></v-img>
                         <v-divider></v-divider>
                         <v-card-title>{{set.name}}</v-card-title>
                         <v-card-text>
@@ -36,13 +36,16 @@ export default {
 
     },
     mounted() {
-        // Insert methods here by using: this.methodName()3
+        // Insert methods here by using: this.methodName()
         this.getAllSets()
     },
     methods: {
         async getAllSets() {
             const sets = await axios.get(`${BASE_URL}/app/lego_set/all`)
             this.legoSets = sets.data
+        },
+        goToSet(id){
+            this.$router.push(`/set/${id}`)
         }
     }
 }

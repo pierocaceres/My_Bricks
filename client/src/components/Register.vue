@@ -39,8 +39,8 @@
           <v-text-field
             ref="confirmPassword"
             v-model="confirmPassword"
-            :rules="[() => !!confirmPassword || 'This field is required']"
-            :append-icon="showconPass ? 'mdi-eye' : 'mdi-eye-off'"
+            :rules="[() => !!confirmPassword || 'This field is required', password == confirmPassword]"
+            :append-icon="showConPass ? 'mdi-eye' : 'mdi-eye-off'"
             :type="showConPass ? 'text' : 'password'"
             @click:append="showConPass = !showConPass"
             label="Confirm Password"
@@ -56,7 +56,7 @@
           <v-btn
             color="primary"
             text
-            @click="submit"
+            @click="handleSubmit()"
           >
             Submit
           </v-btn>
@@ -82,8 +82,20 @@ export default {
     },
     methods: {
         changeRegister() {
-            this.$emit('changeRegister')
-        }
+          this.$emit('changeRegister')
+        },
+        changeSignIn() {
+            this.$emit('changeSignIn')
+        },
+        handleSubmit() {
+          alert(`Form Submitted! ${this.name} ${this.username} ${this.password}`)
+          this.name = ''
+          this.username = ''
+          this.password = ''
+          this.confirmPassword = ''
+          this.changeSignIn()
+          this.changeRegister()
+        },
     }
     
 }

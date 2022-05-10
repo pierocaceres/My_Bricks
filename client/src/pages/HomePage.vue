@@ -6,18 +6,18 @@
             <v-img src='../assets/My Bricks-logos_black.png' height='auto' width='50vw' position='center center' contain></v-img>
           </v-card>
         </v-flex>
-        <v-flex xs6 sm2 md2>
-          <v-card class='d-flex flex-column' flat v-if='!signin && !register'>
+        <v-flex xs6 sm2 md2 v-if='!signin && !register'>
+          <v-card class='d-flex flex-column' flat >
             <v-btn class='ma-5' @click='changeSignIn()'>Sign In</v-btn>
             <v-btn class='ma-5' @click='changeRegister()'>Register</v-btn>
           </v-card>
-          <div v-if='signin'>
-            <SignIn @changeSignIn='changeSignIn()'/>
-          </div>
-          <div v-if='register'>
-            <Register @changeRegister='changeRegister()' />
-          </div>
         </v-flex>
+        <v-flex xs6 sm2 md6 v-if='signin'>
+            <SignIn @changeSignIn='changeSignIn()'/>
+          </v-flex>
+          <v-flex xs6 sm2 md6 v-if='register'>
+            <Register @changeRegister='changeRegister()' @changeSignIn='changeSignIn()'/>
+          </v-flex>
     </v-layout>
   </div>
 </template>
@@ -45,7 +45,7 @@
       },
       changeRegister() {
         this.register = !this.register
-      }
+      },
     }        
   }
 </script>
