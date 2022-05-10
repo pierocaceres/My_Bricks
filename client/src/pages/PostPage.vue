@@ -24,28 +24,33 @@
                     </v-flex>
                 </v-flex>
             </v-card>
-            <v-card flat width='75vw' class=' my-4'>
+            <v-card flat width='75vw' class='my-4'>
                 <h2 class='text-center'>Comments</h2>
-                <v-form>
-                    <v-avatar color='primary' size='52'>
+                <div class='d-flex' width='100vw'>
+                    <v-avatar color='primary' size='52' >
                         <!-- <v-img ></v-img> -->
+                        <!-- Insert the logged-in initial below -->
                         <span class="white--test"></span>
                     </v-avatar>
-                    <v-text-field
-                        v-model="message"
-                        :append-outer-icon="message ? 'mdi-send' : ''"
-                        :prepend-icon="icon"
-                        filled
-                        clear-icon="mdi-close-circle"
-                        clearable
-                        label="Leave a Comment"
-                        type="text"
-                    ></v-text-field>      
-                </v-form>
+                    <v-form style='width: 100%' class='pl-5'>
+                        <v-text-field
+                            v-model="message"
+                            :append-outer-icon="message ? 'mdi-send' : ''"
+                            :prepend-icon="icon"
+                            filled
+                            clearable
+                            label="Leave a Comment"
+                            type="text"
+                        ></v-text-field>      
+                    </v-form>
+                </div>
                 <div v-for='user in comments' :key='user.id'>
-                    <v-avatar color='primary' size='52'>
-                        <span class="white--text text-capitalized">{{user.User.username[0]}}</span>
-                    </v-avatar>
+                    <div class='d-inline-flex'>
+                        <v-avatar color='primary' size='52'>
+                            <span class="white--text">{{user.User.username[0].toUpperCase()}}</span>
+                        </v-avatar>
+                        <div class='pl-5'>{{user.response}}</div>
+                    </div>
                 </div>
             </v-card>
         </v-layout>
