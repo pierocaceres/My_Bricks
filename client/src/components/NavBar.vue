@@ -1,15 +1,15 @@
 <template>
     <nav>
         <v-app-bar app>
-            <v-app-bar-nav-icon @click="showDrawer()" class='d-sm-none'></v-app-bar-nav-icon>
+            <v-app-bar-nav-icon @click="showDrawer()" class='d-md-none'></v-app-bar-nav-icon>
             <v-app-bar-title class="text-uppercase">
                 <span class="font-weight-light">My</span>
                 <span>Bricks</span>
             </v-app-bar-title>
             <v-spacer></v-spacer>
-            <v-text-field label='search' v-model='search' solo prepend-inner-icon='mdi-magnify' class='py-3 mt-6' clearable></v-text-field>
+            <v-text-field label='search' v-model='search' solo dense prepend-inner-icon='mdi-magnify' class='py-3 mt-6' clearable v-if="user"></v-text-field>
             <v-spacer></v-spacer>
-                <div class='d-none d-md-flex' v-for='link in links' :key='link.text'>
+                <div class='d-none d-md-flex' v-for='link in links' :key='link.text' >
                     <v-btn plain v-if="user"> 
                         <span>{{link.text}}</span>
                         <v-icon right>{{link.icon}}</v-icon>
@@ -50,6 +50,5 @@ export default {
             else{ this.drawer = true}
         } 
     }
-    
 }
 </script>
