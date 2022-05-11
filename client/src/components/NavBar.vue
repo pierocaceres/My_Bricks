@@ -8,12 +8,9 @@
             </v-app-bar-title>
             <v-spacer></v-spacer>
 
-            <v-menu offset-y style='max-width: 50px'>
+            <v-menu tyle="width: 60px" transition='slide-y-transition' open-on-hover >
                 <template v-slot:activator='{on}'>
-                    <!-- <v-btn fab depressed x-small v-on='on'>
-                        <v-icon>mdi-dots-vertical</v-icon>
-                    </v-btn> -->
-                    <v-text-field label='search' v-model='search' solo dense rounded clearable v-if="user" prepend-inner-icon='mdi-magnify' class='py-3 mt-6' >
+                    <v-text-field :label='searchMessage()' v-model='search' solo dense rounded clearable v-if="user" prepend-inner-icon='mdi-magnify' class='py-3 mt-6' >
                     <template #append>
                         <v-btn fab depressed x-small v-on='on' color='white'>
                             <v-icon>mdi-dots-vertical</v-icon>
@@ -75,8 +72,9 @@ export default {
         user: true,
         drawer: false,
         search: '',
-        searchBy: 'Name',
-        category: ['Name', 'Theme', 'Builder'],
+        category: ['Lego Set Name', 'Theme', 'Builder'],
+        searchBy: 'Lego Set Name',
+        message: ``,
         links: [
             {icon: 'mdi-account-box', text:'Profile', route: '/user/myprofile'},
             {icon: 'mdi-exit-to-app', text:'Sign Out', route: '/'},
@@ -98,6 +96,9 @@ export default {
         route(path) {
              this.$router.push(path)
         },
+        searchMessage(){
+            return this.message = `Search by ${this.searchBy}`
+        }
     }
 }
 </script>
