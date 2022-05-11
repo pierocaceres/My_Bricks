@@ -1,5 +1,5 @@
 <template>
-  <v-app dark>
+  <v-app >
     <NavBar />
     <!-- <v-app-bar app color="primary" dark>
     </v-app-bar> -->

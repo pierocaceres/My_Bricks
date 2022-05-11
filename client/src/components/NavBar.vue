@@ -7,19 +7,43 @@
                 <span @click="goHome()">Bricks</span>
             </v-app-bar-title>
             <v-spacer></v-spacer>
-            <v-text-field label='search' v-model='search' solo dense rounded prepend-inner-icon='mdi-magnify' append-inner-icon='mdi-magnify' class='py-3 mt-6' clearable v-if="user" ></v-text-field>
+
+            <v-menu offset-y style='max-width: 50px'>
+                <template v-slot:activator='{on}'>
+                    <!-- <v-btn fab depressed x-small v-on='on'>
+                        <v-icon>mdi-dots-vertical</v-icon>
+                    </v-btn> -->
+                    <v-text-field label='search' v-model='search' solo dense rounded clearable v-if="user" prepend-inner-icon='mdi-magnify' class='py-3 mt-6' >
+                    <template #append>
+                        <v-btn fab depressed x-small v-on='on' color='white'>
+                            <v-icon>mdi-dots-vertical</v-icon>
+                        </v-btn>
+                    </template>
+                    </v-text-field>
+                    
+                </template>
+                <v-list>
+                    <v-list-item v-for='item in category' :key="item" @click='searchBy = item'>
+                        {{item}}
+                    </v-list-item>
+                </v-list>
+            </v-menu>
+
             <v-spacer></v-spacer>
-            <v-tooltip bottom >
+
+            <PopUp />
+            
+            <!-- <v-tooltip bottom >
                 <template v-slot:activator='{ on, attrs }'>
-                    <v-btn class="mx-2" fab x-small depressed v-bind="attrs"
-          v-on="on">
+                    <v-btn class="mx-2" fab x-small depressed v-bind="attrs" v-on="on">
                         <v-icon dark>
                             mdi-plus
                         </v-icon>
                     </v-btn>
                 </template>
                 <span>Post a new lego set build</span>
-            </v-tooltip>
+            </v-tooltip> -->
+
             <div class='d-none d-md-flex' v-for='link in links' :key='link.text' >
                 <v-btn plain v-if="user" @click="route(link.route)"> 
                     <span>{{link.text}}</span>
@@ -44,17 +68,21 @@
 </template>
 
 <script>
+import PopUp from './PopUp.vue'
 
 export default {
     data: () => ({
         user: true,
         drawer: false,
         search: '',
+        searchBy: 'Name',
+        category: ['Name', 'Theme', 'Builder'],
         links: [
             {icon: 'mdi-account-box', text:'Profile', route: '/user/myprofile'},
             {icon: 'mdi-exit-to-app', text:'Sign Out', route: '/'},
         ]
     }),
+    components: { PopUp },
     methods:{
         showDrawer(){
             if(this.drawer){this.drawer = false}
@@ -69,7 +97,7 @@ export default {
         },
         route(path) {
              this.$router.push(path)
-        }
+        },
     }
 }
 </script>

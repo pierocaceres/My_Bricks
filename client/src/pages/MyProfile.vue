@@ -17,7 +17,9 @@
                         <div>{{set.theme}}</div>
                     </v-flex>
                     <v-flex xs12 sm4 md2 align-self-center>
-                        <v-icon right @click='editSet(set.id)'>mdi-pencil</v-icon>
+                        <v-btn fab depressed @click='editSet(set.id)' color='white'>
+                            <v-icon>mdi-pencil</v-icon>
+                        </v-btn>
                     </v-flex>
                 </v-layout>
             </v-card>
@@ -46,7 +48,6 @@ export default {
         async getUserSets() {
             // save the logged in users id in a variable
             const sets = await axios.get(`${BASE_URL}/app/lego_set/user/1`)
-            console.log(sets.data)
             this.legoSets = sets.data
         },
         goToSet(id){
