@@ -7,19 +7,30 @@
                 <span @click="goHome()">Bricks</span>
             </v-app-bar-title>
             <v-spacer></v-spacer>
-            <v-text-field label='search' v-model='search' solo dense rounded prepend-inner-icon='mdi-magnify' class='py-3 mt-6' clearable v-if="user"></v-text-field>
+            <v-text-field label='search' v-model='search' solo dense rounded prepend-inner-icon='mdi-magnify' append-inner-icon='mdi-magnify' class='py-3 mt-6' clearable v-if="user" ></v-text-field>
             <v-spacer></v-spacer>
-                <div class='d-none d-md-flex' v-for='link in links' :key='link.text' >
-                    <v-btn plain v-if="user"> 
-                        <span>{{link.text}}</span>
-                        <v-icon right>{{link.icon}}</v-icon>
+            <v-tooltip bottom >
+                <template v-slot:activator='{ on, attrs }'>
+                    <v-btn class="mx-2" fab x-small depressed v-bind="attrs"
+          v-on="on">
+                        <v-icon dark>
+                            mdi-plus
+                        </v-icon>
                     </v-btn>
-                </div>
+                </template>
+                <span>Post a new lego set build</span>
+            </v-tooltip>
+            <div class='d-none d-md-flex' v-for='link in links' :key='link.text' >
+                <v-btn plain v-if="user" @click="route(link.route)"> 
+                    <span>{{link.text}}</span>
+                    <v-icon right>{{link.icon}}</v-icon>
+                </v-btn>
+            </div>
         </v-app-bar>
 
         <v-navigation-drawer app temporary v-model="drawer" >
             <v-list>
-                <v-list-item v-for='link in links' :key='link.text' router :to='link.route'>
+                <v-list-item v-for='link in links' :key='link.text' router :to='link.route' @click="route(link.route)">
                     <v-list-item-action>
                         <v-icon left>{{link.icon}}</v-icon>
                     </v-list-item-action>
@@ -40,7 +51,7 @@ export default {
         drawer: false,
         search: '',
         links: [
-            {icon: 'mdi-account-box', text:'Profile', route: '/profile'},
+            {icon: 'mdi-account-box', text:'Profile', route: '/user/myprofile'},
             {icon: 'mdi-exit-to-app', text:'Sign Out', route: '/'},
         ]
     }),
@@ -56,6 +67,9 @@ export default {
                 this.$router.push(`/`)
             }
         },
+        route(path) {
+             this.$router.push(path)
+        }
     }
 }
 </script>

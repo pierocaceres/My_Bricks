@@ -41,6 +41,7 @@
                             clearable
                             label="Leave a Comment"
                             type="text"
+                            @click:append-outer='submitComment()'
                         ></v-text-field>      
                     </v-form>
                 </div>
@@ -83,6 +84,10 @@ export default {
             console.log(set.data.Comments)
             this.legoSet = set.data
             this.comments = set.data.Comments
+        },
+        submitComment() {
+            alert(`${this.message}`)
+            this.message = ''
         }
     }
 }
