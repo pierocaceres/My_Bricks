@@ -17,9 +17,10 @@
                         <div>{{set.theme}}</div>
                     </v-flex>
                     <v-flex xs12 sm4 md2 align-self-center>
-                        <v-btn fab depressed @click='editSet(set.id)' color='white'>
+                        <!-- <v-btn fab depressed @click='editSet(set.id)' color='white'>
                             <v-icon>mdi-pencil</v-icon>
-                        </v-btn>
+                        </v-btn> -->
+                        <EditPopUp :names='set.name' :pictures='set.picture' :difficultys='set.difficulty' :themes='set.theme' :build_progresss='set.build_progress'/>
                     </v-flex>
                 </v-layout>
             </v-card>
@@ -30,6 +31,7 @@
 
 <script>
 import axios from 'axios'
+import EditPopUp from '../components/EditPopUp.vue'
 
 const BASE_URL = 'http://localhost:3001'
 
@@ -39,7 +41,7 @@ export default {
         legoSets: [],
     }),
     components: {
-
+        EditPopUp,
     },
     mounted() {
         this.getUserSets()
@@ -53,8 +55,9 @@ export default {
         goToSet(id){
             this.$router.push(`/set/${id}`)
         },
-        editSet(id){
-            alert(`Edit set ${id}`)
+        editSet(value){
+            alert(`Edit set ${value}`)
+            this.edit = true
         }
     }
 }

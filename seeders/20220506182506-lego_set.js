@@ -13,6 +13,9 @@ module.exports = {
      *   isBetaMember: false
      * }], {});
     */
+   const userID = await User.findByPk(1).id
+   const userID2 = await User.findByPk(2).id
+
     return queryInterface.bulkInsert('lego_sets', [
       {
         name: "Millennium Falcon UC",
@@ -20,7 +23,8 @@ module.exports = {
         difficulty: 5,
         theme: "Star Wars",
         build_progress: "It was a journey. Took 48 total hours in a span of 5 days.",
-        user_id: User.findByPk(1).id,
+        // user_id: await User.findByPk(1).id,
+        user_id: 1,
         createdAt: new Date(),
         updatedAt: new Date()
       },
@@ -30,7 +34,8 @@ module.exports = {
         difficulty: 2,
         theme: "Harry Potter",
         build_progress: "Multiple figures to build. Great to build with a S.O. of friend.",
-        user_id: User.findByPk(2).id,
+        // user_id: await User.findByPk(2).id,
+        user_id: 2,
         createdAt: new Date(),
         updatedAt: new Date()
       }

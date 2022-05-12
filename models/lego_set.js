@@ -26,6 +26,7 @@ module.exports = (sequelize, DataTypes) => {
   }
   Lego_set.init({
     name: DataTypes.STRING,
+    // picture: DataTypes.ARRAY(DataTypes.TEXT),
     picture: DataTypes.TEXT,
     difficulty: DataTypes.INTEGER,
     theme: DataTypes.STRING,

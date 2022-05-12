@@ -43,6 +43,7 @@ export default {
         async getAllSets() {
             const sets = await axios.get(`${BASE_URL}/app/lego_set/all`)
             this.legoSets = sets.data
+            console.log(this.legoSets)
         },
         goToSet(id){
             this.$router.push(`/set/${id}`)

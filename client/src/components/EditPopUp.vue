@@ -1,16 +1,11 @@
 <template>
     <v-dialog v-model='dialog' persistent width='600px' >
         
-        <!-- <v-tooltip bottom > -->
-            <template v-slot:activator='{ on, attrs }'>
-                <v-btn class="mx-2 " fab x-small depressed v-bind="attrs" v-on="on">
-                    <v-icon >
-                        mdi-plus
-                    </v-icon>
-                </v-btn>
-            </template>
-            <!-- <span>Post a new lego set build</span> -->
-        <!-- </v-tooltip> -->
+        <template v-slot:activator='{ on, attrs }'>
+            <v-btn fab depressed @click='editSet(set.id)' color='white' v-bind="attrs" v-on="on">
+                <v-icon>mdi-pencil</v-icon>
+            </v-btn>
+        </template>
 
         <v-card>
             <v-card-title>
@@ -112,7 +107,8 @@
 
 <script>
 export default {
-    name: 'PopUp',
+    name: 'EditPopUp',
+    props: ['names', 'pictures', 'difficultys', 'themes', 'build_progresss'],
     data: () => ({
         dialog: false,
         name: '',
@@ -124,6 +120,10 @@ export default {
         images: [],
         image_count: 0,
     }),
+    mounted() {
+        this.setValues()
+        this.addImage()
+    },
     methods:{
         addImage() {
             // alert(this.image_path + this.difficulty)
@@ -136,17 +136,16 @@ export default {
         },
         resetValues() {
             this.dialog = false
-            this.name = ''
-            this.picture = ''
-            this.difficulty = 0
-            this.theme = ''
-            this.build_progress = ''
-            this.image_path = ''
-            this.images = []
-            this.image_count = 0
         },
         submitForm() {
             alert(this.name + ' ' + this.theme + ' ' + this.difficulty + ' ' + this.build_progress)
+        },
+        setValues() {
+            this.name =  this.names
+            this.theme =  this.themes
+            this.difficulty =  this.difficultys
+            this.build_progress =  this.build_progresss
+            this.picture =  this.pictures
         }
     }
 }
