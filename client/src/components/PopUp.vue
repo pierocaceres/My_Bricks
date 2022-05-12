@@ -40,6 +40,7 @@
                         <v-rating
                         :value='difficulty'
                         :rules="[() => difficulty > 0 || 'This field is required']"
+                        @input='updateRating($event)'
                         size='15'
                         dense
                         ></v-rating>
@@ -51,18 +52,35 @@
                         ></v-textarea>
                     </v-col>
                     <v-col cols="12" sm="6">
-                        <v-select
-                        :items="['0-17', '18-29', '30-54', '54+']"
-                        label="Age*"
-                        required
-                        ></v-select>
+                        <v-carousel height='200' hide-delimiters>
+                            <v-carousel-item
+                            v-for="(image,i) in images"
+                            :key="i"
+                            :src="image"
+                            reverse-transition="fade-transition"
+                            transition="fade-transition"
+                            ></v-carousel-item>
+                        </v-carousel>
                     </v-col>
                     <v-col cols="12" sm="6" >
-                        <v-autocomplete
-                        :items="['Skiing', 'Ice hockey', 'Soccer', 'Basketball', 'Hockey', 'Reading', 'Writing', 'Coding', 'Basejump']"
-                        label="Interests"
-                        multiple
-                        ></v-autocomplete>
+                        <v-text-field
+                        label="Image URL of Lego Set *"
+                        v-model='image_path' 
+                        :rules="[() => image_count > 0 || 'This field is required']"
+                        append-outer-icon='mdi-send'
+                        @click:append-outer='addImage()'
+                        required
+                        ></v-text-field>
+                        <template>
+                        <v-file-input
+                            accept="image/*"
+                            label="Upload Images"
+                            small-chips 
+                            multiple
+                            append-outer-icon='mdi-send'
+                            @click:append-outer='addImage()'
+                        ></v-file-input>
+                        </template>
                     </v-col>
                 </v-row>
             </v-container>
@@ -73,16 +91,16 @@
                 <v-btn
                     color="blue darken-1"
                     text
-                    @click="dialog = false"
+                    @click="resetValues()"
                 >
                     Close
                 </v-btn>
                 <v-btn
                     color="blue darken-1"
                     text
-                    @click="dialog = false"
+                    @click="submitForm()"
                 >
-                    Save
+                    Submit
                 </v-btn>
             </v-card-actions>
         </v-card>
@@ -99,8 +117,34 @@ export default {
         difficulty: 0,
         theme: '',
         build_progress: '',
+        image_path: '',
         images: [],
-    })
-    
+        image_count: 0,
+    }),
+    methods:{
+        addImage() {
+            // alert(this.image_path + this.difficulty)
+            this.images.push(this.image_path)
+            this.image_count++
+            this.image_path = ''
+        },
+        updateRating(value) {
+            this.difficulty = value
+        },
+        resetValues() {
+            this.dialog = false
+            this.name = ''
+            this.picture = ''
+            this.difficulty = 0
+            this.theme = ''
+            this.build_progress = ''
+            this.image_path = ''
+            this.images = []
+            this.image_count = 0
+        },
+        submitForm() {
+            
+        }
+    }
 }
 </script>
