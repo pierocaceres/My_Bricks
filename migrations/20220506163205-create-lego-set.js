@@ -12,8 +12,8 @@ module.exports = {
         type: Sequelize.STRING
       },
       picture: {
-        // type: Sequelize.ARRAY(Sequelize.TEXT)
-        type: Sequelize.TEXT
+        type: Sequelize.ARRAY(Sequelize.TEXT)
+        // type: Sequelize.TEXT
       },
       difficulty: {
         type: Sequelize.INTEGER

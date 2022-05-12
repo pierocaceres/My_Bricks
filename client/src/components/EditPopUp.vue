@@ -9,7 +9,7 @@
 
         <v-card>
             <v-card-title>
-                <div class='text-h1-substitle-1'>Add Your Lego Set</div>
+                <div class='text-h1-substitle-1'>Edit Your Lego Set</div>
             </v-card-title>
             <v-card-text>
             <v-container>
@@ -49,14 +49,16 @@
                         ></v-textarea>
                     </v-col>
                     <v-col cols="12" sm="6">
-                        <v-carousel height='200' hide-delimiters>
+                        <v-carousel height='200' hide-delimiters cycle>
                             <v-carousel-item
                             v-for="(image,i) in images"
                             :key="i"
-                            :src="image"
                             reverse-transition="fade-transition"
                             transition="fade-transition"
-                            ></v-carousel-item>
+                            style="object-fit:cover"
+                            >
+                            <v-img :src="image" contain height='200px'></v-img>
+                            </v-carousel-item>
                         </v-carousel>
                     </v-col>
                     <v-col cols="12" sm="6" >
@@ -108,14 +110,13 @@
 <script>
 export default {
     name: 'EditPopUp',
-    props: ['names', 'pictures', 'difficultys', 'themes', 'build_progresss'],
+    props: ['names', 'pictures', 'difficultys', 'themes', 'build'],
     data: () => ({
         dialog: false,
         name: '',
         theme: '',
         difficulty: 0,
         build_progress: '',
-        picture: '',
         image_path: '',
         images: [],
         image_count: 0,
@@ -126,7 +127,6 @@ export default {
     },
     methods:{
         addImage() {
-            // alert(this.image_path + this.difficulty)
             this.images.push(this.image_path)
             this.image_count++
             this.image_path = ''
@@ -144,8 +144,8 @@ export default {
             this.name =  this.names
             this.theme =  this.themes
             this.difficulty =  this.difficultys
-            this.build_progress =  this.build_progresss
-            this.picture =  this.pictures
+            this.build_progress =  this.build
+            this.image_path =  this.pictures
         }
     }
 }

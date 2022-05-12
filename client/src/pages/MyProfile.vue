@@ -20,7 +20,7 @@
                         <!-- <v-btn fab depressed @click='editSet(set.id)' color='white'>
                             <v-icon>mdi-pencil</v-icon>
                         </v-btn> -->
-                        <EditPopUp :names='set.name' :pictures='set.picture' :difficultys='set.difficulty' :themes='set.theme' :build_progresss='set.build_progress'/>
+                        <EditPopUp :names='set.name' :pictures='set.picture' :difficultys='set.difficulty' :themes='set.theme' :build='set.build_progress'/>
                     </v-flex>
                 </v-layout>
             </v-card>

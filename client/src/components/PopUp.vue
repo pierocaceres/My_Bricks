@@ -119,7 +119,6 @@ export default {
         theme: '',
         difficulty: 0,
         build_progress: '',
-        picture: '',
         image_path: '',
         images: [],
         image_count: 0,
@@ -137,7 +136,6 @@ export default {
         resetValues() {
             this.dialog = false
             this.name = ''
-            this.picture = ''
             this.difficulty = 0
             this.theme = ''
             this.build_progress = ''
