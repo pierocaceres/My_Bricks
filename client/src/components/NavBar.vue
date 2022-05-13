@@ -10,8 +10,8 @@
 
             <v-menu tyle="width: 60px" transition='slide-y-transition' open-on-hover >
                 <template v-slot:activator='{on}'>
-                    <v-form @change="sendSearch(event)">
-                        <v-text-field :label='searchMessage()' v-model='search' solo dense rounded clearable v-if="user" prepend-inner-icon='mdi-magnify' class='py-3 mt-6' @click:prepend-inner="sendSearch()">
+                    <v-form @submit="sendSearch">
+                        <v-text-field :label='searchMessage()' v-model='search' solo dense rounded clearable v-if="user" prepend-inner-icon='mdi-magnify' class='py-3 mt-6' @click:prepend-inner="sendSearch">
                         <template #append>
                             <v-btn fab depressed x-small v-on='on' color='white'>
                                 <v-icon>mdi-dots-vertical</v-icon>
@@ -31,17 +31,6 @@
             <v-spacer></v-spacer>
 
             <PopUp />
-            
-            <!-- <v-tooltip bottom >
-                <template v-slot:activator='{ on, attrs }'>
-                    <v-btn class="mx-2" fab x-small depressed v-bind="attrs" v-on="on">
-                        <v-icon dark>
-                            mdi-plus
-                        </v-icon>
-                    </v-btn>
-                </template>
-                <span>Post a new lego set build</span>
-            </v-tooltip> -->
 
             <div class='d-none d-md-flex' v-for='link in links' :key='link.text' >
                 <v-btn plain v-if="user" @click="route(link.route)"> 
@@ -92,9 +81,6 @@ export default {
         this.initialValue()
     },
     methods:{
-        // initialValue(){
-        //     this.set = this.legoSets
-        // },
         updateLegoSets(set) {
             this.$emit('updateLegoSets', set)
         },
@@ -115,20 +101,34 @@ export default {
         searchMessage(){
             return this.message = `Search by ${this.searchBy}`
         },
-        async sendSearch() {
+        async sendSearch(event) {
+            event.preventDefault()
+
             if(this.search == ''){
                 const sets = await axios.get(`${BASE_URL}/app/lego_set/all`)
                 this.updateLegoSets(sets.data)
             }else if(this.searchBy == 'Lego Set Name'){
                 const sets = await axios.get(`${BASE_URL}/app/search/set_name/${this.search}`)
-                this.updateLegoSets(sets.data)
-                this.$router.push(`/feed`)
+                // console.log(sets.length)
+                if(sets.data.length > 0){
+                    this.updateLegoSets(sets.data)
+                    this.$router.push(`/feed`)
+                }
+                this.search = ''
             }else if(this.searchBy == 'Theme'){
                 const sets = await axios.get(`${BASE_URL}/app/search/theme/${this.search}`)
-                this.updateLegoSets(sets.data)
+                if(sets.data.length > 0){
+                    this.updateLegoSets(sets.data)
+                    this.$router.push(`/feed`)
+                }
+                this.search = ''
             }else if(this.searchBy == 'Builder') {
                 const sets = await axios.get(`${BASE_URL}/app/search/builder/${this.search}`)
-                this.updateLegoSets(sets.data)
+                if(sets.data.length > 0){
+                    this.updateLegoSets(sets.data)
+                    this.$router.push(`/feed`)
+                }
+                this.search = ''
             }
         }
     }
