@@ -6,7 +6,7 @@
                 <v-layout row wrap class='pa-3'>
                     <v-flex xs12 sm12 md4 class='py-3' @click='goToSet(set.id)' style="cursor: pointer;">
                         <!-- <div class='text-caption grey--text'>Image</div> -->
-                        <v-img :src='set.picture' max-height='100' contain />
+                        <v-img :src='set.picture[0]' max-height='100' contain />
                     </v-flex>
                     <v-flex xs12 sm4 md4 align-self-center @click='goToSet(set.id)' style="cursor: pointer;">
                         <div class='text-caption grey--text'>Lego Set Name</div>

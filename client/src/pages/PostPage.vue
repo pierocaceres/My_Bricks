@@ -4,7 +4,18 @@
             <v-card flat width='75vw' class='my-10'>
                 <v-flex row wrap>
                     <v-flex md6>
-                        <v-img :src='legoSet.picture' height='250' contain ></v-img>
+                        <!-- <v-img :src='legoSet.picture' height='250' contain ></v-img> -->
+                        <v-carousel height='250px' hide-delimiters cycle>
+                            <v-carousel-item
+                            v-for="(image,i) in legoSet.picture"
+                            :key="i"
+                            reverse-transition="fade-transition"
+                            transition="fade-transition"
+                            style="object-fit:cover"
+                            >
+                            <v-img :src="image" contain height='250px'></v-img>
+                            </v-carousel-item>
+                        </v-carousel>
                     </v-flex>
                     <v-flex md6 class="pl-5">
                         <div class='text-h4 text-center font-weight-light'>{{legoSet.name}}</div>

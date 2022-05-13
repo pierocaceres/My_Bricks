@@ -5,7 +5,7 @@
             <v-row dense>
                 <v-col xs12 s6 md4 lg3 v-for='set in legoSets' :key='set.id'>
                     <v-card class='mx-auto my-12' max-width='375' @click='goToSet(set.id)'>
-                        <v-img height='200' contain :src='set.picture' :position='center' :background-position='center'></v-img>
+                        <v-img height='200' contain :src='set.picture[0]' :position='center' :background-position='center'></v-img>
                         <v-divider></v-divider>
                         <v-card-title>{{set.name}}</v-card-title>
                         <v-card-text>

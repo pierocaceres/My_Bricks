@@ -123,13 +123,13 @@ export default {
     }),
     mounted() {
         this.setValues()
-        this.addImage()
+        this.initialImage()
     },
     methods:{
-        addImage() {
-            this.images.push(this.image_path)
-            this.image_count++
-            this.image_path = ''
+        initialImage() {
+            this.images = this.image_path
+            this.image_count = this.image_path.length
+            this.image_path = []
         },
         updateRating(value) {
             this.difficulty = value

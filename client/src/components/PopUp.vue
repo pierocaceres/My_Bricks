@@ -73,16 +73,29 @@
                         @click:append-outer='addImage()'
                         required
                         ></v-text-field>
-                        <template>
+                        <!-- <template>
                         <v-file-input
                             accept="image/*"
-                            label="Upload Images"
+                            label="Click here to upload images"
+                            v-modal="file_path"
                             small-chips 
                             multiple
+                            prepend-icon="mdi-camera"
                             append-outer-icon='mdi-send'
-                            @click:append-outer='addImage()'
+                            @click:append-outer='addFile()'
                         ></v-file-input>
-                        </template>
+                        </template> -->
+                        <v-chip
+                        v-for="(image, i) in images"
+                        :key="i"
+                        class="ma-2"
+                        close
+                        color="red"
+                        text-color="white"
+                        @click:close="removeImage(i)"
+                        >
+                        Image {{i+1}}
+                        </v-chip>
                     </v-col>
                 </v-row>
             </v-container>
@@ -111,6 +124,9 @@
 </template>
 
 <script>
+// import axios from "axios"
+// const BASE_URL = 'http://localhost:3001'
+
 export default {
     name: 'PopUp',
     data: () => ({
@@ -120,6 +136,8 @@ export default {
         difficulty: 0,
         build_progress: '',
         image_path: '',
+        file_path: null,
+        data: null,
         images: [],
         image_count: 0,
     }),
@@ -129,6 +147,23 @@ export default {
             this.images.push(this.image_path)
             this.image_count++
             this.image_path = ''
+        },
+        removeImage(index){
+            this.images.splice(index, 1)
+        },
+        addFile() {
+
+            if (!this.file_path) {this.data = "No File Chosen"}
+            let reader = new FileReader();
+
+            reader.readAsText(this.file_path);
+            reader.onload = () => {
+                this.data = reader.result;
+            }
+
+            this.images.push(this.data)
+            this.image_count++
+            this.file_path = ''
         },
         updateRating(value) {
             this.difficulty = value
@@ -143,8 +178,19 @@ export default {
             this.images = []
             this.image_count = 0
         },
-        submitForm() {
-            alert(this.name + ' ' + this.theme + ' ' + this.difficulty + ' ' + this.build_progress)
+        async submitForm() {
+            // alert(this.name + ' ' + this.theme + ' ' + this.difficulty + ' ' + this.build_progress)
+            const payload = {
+                name: this.name,
+                picture: this.images,
+                difficulty: this.difficulty,
+                theme: this.theme,
+                build_progress: this.build_progress,
+                user_id: 1
+            }
+            console.log(payload)
+            // await axios.post(`${BASE_URL}/app/lego_set/create`, payload)
+            this.dialog = false
         }
     }
 }
