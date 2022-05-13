@@ -113,7 +113,7 @@
                 <v-btn
                     color="blue darken-1"
                     text
-                    @click="submitForm()"
+                    @click="submitSet()"
                 >
                     Submit
                 </v-btn>
@@ -178,8 +178,7 @@ export default {
             this.images = []
             this.image_count = 0
         },
-        async submitForm() {
-            // alert(this.name + ' ' + this.theme + ' ' + this.difficulty + ' ' + this.build_progress)
+        async submitSet() {
             const payload = {
                 name: this.name,
                 picture: this.images,
@@ -188,7 +187,6 @@ export default {
                 build_progress: this.build_progress,
                 user_id: 1
             }
-            console.log(payload)
             await axios.post(`${BASE_URL}/app/lego_set/create`, payload)
             this.dialog = false
         }

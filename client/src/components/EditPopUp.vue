@@ -115,7 +115,7 @@
                 <v-btn
                     color="blue darken-1"
                     text
-                    @click="submitForm()"
+                    @click="submitSet()"
                 >
                     Submit
                 </v-btn>
@@ -160,10 +160,8 @@ export default {
             this.dialog = false
         },
         async deleteSet() {
-            await axios.get(`${BASE_URL}/app/lego_set/delete/${this.id}`)
-        },
-        submitForm() {
-            alert(this.name + ' ' + this.theme + ' ' + this.difficulty + ' ' + this.build_progress)
+            await axios.delete(`${BASE_URL}/app/lego_set/delete/${this.id}`)
+            this.dialog = false
         },
         setValues() {
             this.name =  this.names
@@ -171,7 +169,19 @@ export default {
             this.difficulty =  this.difficultys
             this.build_progress =  this.build
             this.image_path =  this.pictures
-        }
+        },
+        async submitSet() {
+            const payload = {
+                name: this.name,
+                picture: this.images,
+                difficulty: this.difficulty,
+                theme: this.theme,
+                build_progress: this.build_progress,
+                user_id: 1
+            }
+            await axios.put(`${BASE_URL}/app/lego_set/update/${this.id}`, payload)
+            this.dialog = false
+        },
     }
 }
 </script>
