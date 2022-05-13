@@ -1,6 +1,6 @@
 <template>
     <nav>
-        <v-app-bar absolute elevate-on-scroll>
+        <v-app-bar absolute elevate-on-scroll >
             <v-app-bar-nav-icon @click="showDrawer()" class='d-md-none'></v-app-bar-nav-icon>
             <v-app-bar-title class="text-uppercase" style="cursor: pointer;" >
                 <span class="font-weight-light" @click="goHome()" :cursor='pointer'>My</span>

@@ -124,8 +124,8 @@
 </template>
 
 <script>
-// import axios from "axios"
-// const BASE_URL = 'http://localhost:3001'
+import axios from "axios"
+const BASE_URL = 'http://localhost:3001'
 
 export default {
     name: 'PopUp',
@@ -189,7 +189,7 @@ export default {
                 user_id: 1
             }
             console.log(payload)
-            // await axios.post(`${BASE_URL}/app/lego_set/create`, payload)
+            await axios.post(`${BASE_URL}/app/lego_set/create`, payload)
             this.dialog = false
         }
     }

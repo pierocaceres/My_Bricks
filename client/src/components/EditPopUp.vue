@@ -70,7 +70,7 @@
                         @click:append-outer='addImage()'
                         required
                         ></v-text-field>
-                        <template>
+                        <!-- <template>
                         <v-file-input
                             accept="image/*"
                             label="Upload Images"
@@ -79,7 +79,18 @@
                             append-outer-icon='mdi-send'
                             @click:append-outer='addImage()'
                         ></v-file-input>
-                        </template>
+                        </template> -->
+                        <v-chip
+                        v-for="(image, i) in images"
+                        :key="i"
+                        class="ma-2"
+                        close
+                        color="red"
+                        text-color="white"
+                        @click:close="removeImage(i)"
+                        >
+                        Image {{i+1}}
+                        </v-chip>
                     </v-col>
                 </v-row>
             </v-container>
@@ -90,9 +101,16 @@
                 <v-btn
                     color="blue darken-1"
                     text
-                    @click="resetValues()"
+                    @click="close()"
                 >
                     Close
+                </v-btn>
+                <v-btn
+                    color="red darken-1"
+                    text
+                    @click="deleteSet()"
+                >
+                    Delete
                 </v-btn>
                 <v-btn
                     color="blue darken-1"
@@ -108,9 +126,13 @@
 </template>
 
 <script>
+import axios from "axios"
+
+const BASE_URL = 'http://localhost:3001'
+
 export default {
     name: 'EditPopUp',
-    props: ['names', 'pictures', 'difficultys', 'themes', 'build'],
+    props: ['id', 'names', 'pictures', 'difficultys', 'themes', 'build'],
     data: () => ({
         dialog: false,
         name: '',
@@ -134,8 +156,11 @@ export default {
         updateRating(value) {
             this.difficulty = value
         },
-        resetValues() {
+        close() {
             this.dialog = false
+        },
+        async deleteSet() {
+            await axios.get(`${BASE_URL}/app/lego_set/delete/${this.id}`)
         },
         submitForm() {
             alert(this.name + ' ' + this.theme + ' ' + this.difficulty + ' ' + this.build_progress)
