@@ -73,6 +73,7 @@ import PopUp from './PopUp.vue'
 const BASE_URL = 'http://localhost:3001'
 
 export default {
+    // props: ['legoSets'],
     data: () => ({
         user: true,
         drawer: false,
@@ -83,10 +84,20 @@ export default {
         links: [
             {icon: 'mdi-account-box', text:'Profile', route: '/user/myprofile'},
             {icon: 'mdi-exit-to-app', text:'Sign Out', route: '/'},
-        ]
+        ],
+        set: []
     }),
     components: { PopUp },
+    mounted() {
+        this.initialValue()
+    },
     methods:{
+        // initialValue(){
+        //     this.set = this.legoSets
+        // },
+        updateLegoSets(set) {
+            this.$emit('updateLegoSets', set)
+        },
         showDrawer(){
             if(this.drawer){this.drawer = false}
             else{ this.drawer = true}
@@ -105,16 +116,19 @@ export default {
             return this.message = `Search by ${this.searchBy}`
         },
         async sendSearch() {
-            // event.preventDefault()
-            // const payload = { search: this.search}
-            if(this.searchBy == 'Lego Set Name'){
+            if(this.search == ''){
+                const sets = await axios.get(`${BASE_URL}/app/lego_set/all`)
+                this.updateLegoSets(sets.data)
+            }else if(this.searchBy == 'Lego Set Name'){
                 const sets = await axios.get(`${BASE_URL}/app/search/set_name/${this.search}`)
-                console.log(sets)
+                this.updateLegoSets(sets.data)
+                this.$router.push(`/feed`)
             }else if(this.searchBy == 'Theme'){
                 const sets = await axios.get(`${BASE_URL}/app/search/theme/${this.search}`)
-                console.log(sets)
+                this.updateLegoSets(sets.data)
             }else if(this.searchBy == 'Builder') {
-                alert(this.search)
+                const sets = await axios.get(`${BASE_URL}/app/search/builder/${this.search}`)
+                this.updateLegoSets(sets.data)
             }
         }
     }

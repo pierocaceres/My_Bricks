@@ -108,8 +108,9 @@ const SearchByBuilder = async (req, res) => {
   try {
     const search = req.params.builder
     const sets = await Lego_set.findAll({
-      where: { theme: {[Op.iLike]: `%${search}%`}},
-      include: [{model: User, attributes: ['username']}]
+      include: [{model: User, attributes: ['username'],
+        where: { username: {[Op.iLike]: `%${search}%`}}
+      }]
     })
     res.send(sets)
   } catch (error) {
