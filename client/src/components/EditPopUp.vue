@@ -49,7 +49,7 @@
                         ></v-textarea>
                     </v-col>
                     <v-col cols="12" sm="6">
-                        <v-carousel height='200' hide-delimiters cycle>
+                        <v-carousel height='200' hide-delimiters cycle interval="3000">
                             <v-carousel-item
                             v-for="(image,i) in images"
                             :key="i"
@@ -70,16 +70,6 @@
                         @click:append-outer='addImage()'
                         required
                         ></v-text-field>
-                        <!-- <template>
-                        <v-file-input
-                            accept="image/*"
-                            label="Upload Images"
-                            small-chips 
-                            multiple
-                            append-outer-icon='mdi-send'
-                            @click:append-outer='addImage()'
-                        ></v-file-input>
-                        </template> -->
                         <v-chip
                         v-for="(image, i) in images"
                         :key="i"
@@ -156,12 +146,17 @@ export default {
         updateRating(value) {
             this.difficulty = value
         },
+        removeImage(index){
+            this.images.splice(index, 1)
+        },
         close() {
             this.dialog = false
+            window.location.reload()
         },
         async deleteSet() {
             await axios.delete(`${BASE_URL}/app/lego_set/delete/${this.id}`)
             this.dialog = false
+            window.location.reload()
         },
         setValues() {
             this.name =  this.names
@@ -169,6 +164,7 @@ export default {
             this.difficulty =  this.difficultys
             this.build_progress =  this.build
             this.image_path =  this.pictures
+            this.image_count = this.pictures.length
         },
         async submitSet() {
             const payload = {
@@ -177,10 +173,12 @@ export default {
                 difficulty: this.difficulty,
                 theme: this.theme,
                 build_progress: this.build_progress,
+                // Push the suers ID below
                 user_id: 1
             }
             await axios.put(`${BASE_URL}/app/lego_set/update/${this.id}`, payload)
             this.dialog = false
+            window.location.reload()
         },
     }
 }

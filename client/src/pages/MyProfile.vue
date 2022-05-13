@@ -1,5 +1,5 @@
 <template>
-    <div class='my-page ma-16 pa-16'>
+    <div class='my-page ma-16 '>
         <div class='text-h1-subtitle-1'>My Profile</div>
         <v-container class='my-5'>
             <v-card v-for='set in legoSets' :key='set.id'  class='my-9'>

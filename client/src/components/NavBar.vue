@@ -1,6 +1,6 @@
 <template>
     <nav>
-        <v-app-bar absolute elevate-on-scroll >
+        <v-app-bar app elevate-on-scroll >
             <v-app-bar-nav-icon @click="showDrawer()" class='d-md-none'></v-app-bar-nav-icon>
             <v-app-bar-title class="text-uppercase" style="cursor: pointer;" >
                 <span class="font-weight-light" @click="goHome()" :cursor='pointer'>My</span>
@@ -10,13 +10,15 @@
 
             <v-menu tyle="width: 60px" transition='slide-y-transition' open-on-hover >
                 <template v-slot:activator='{on}'>
-                    <v-text-field :label='searchMessage()' v-model='search' solo dense rounded clearable v-if="user" prepend-inner-icon='mdi-magnify' class='py-3 mt-6' >
-                    <template #append>
-                        <v-btn fab depressed x-small v-on='on' color='white'>
-                            <v-icon>mdi-dots-vertical</v-icon>
-                        </v-btn>
-                    </template>
-                    </v-text-field>
+                    <v-form @change="sendSearch(event)">
+                        <v-text-field :label='searchMessage()' v-model='search' solo dense rounded clearable v-if="user" prepend-inner-icon='mdi-magnify' class='py-3 mt-6' @click:prepend-inner="sendSearch()">
+                        <template #append>
+                            <v-btn fab depressed x-small v-on='on' color='white'>
+                                <v-icon>mdi-dots-vertical</v-icon>
+                            </v-btn>
+                        </template>
+                        </v-text-field>
+                    </v-form>
                     
                 </template>
                 <v-list>
@@ -65,7 +67,10 @@
 </template>
 
 <script>
+import axios from 'axios'
 import PopUp from './PopUp.vue'
+
+const BASE_URL = 'http://localhost:3001'
 
 export default {
     data: () => ({
@@ -98,6 +103,19 @@ export default {
         },
         searchMessage(){
             return this.message = `Search by ${this.searchBy}`
+        },
+        async sendSearch() {
+            // event.preventDefault()
+            // const payload = { search: this.search}
+            if(this.searchBy == 'Lego Set Name'){
+                const sets = await axios.get(`${BASE_URL}/app/search/set_name/${this.search}`)
+                console.log(sets)
+            }else if(this.searchBy == 'Theme'){
+                const sets = await axios.get(`${BASE_URL}/app/search/theme/${this.search}`)
+                console.log(sets)
+            }else if(this.searchBy == 'Builder') {
+                alert(this.search)
+            }
         }
     }
 }

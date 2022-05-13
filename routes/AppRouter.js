@@ -26,6 +26,10 @@ Router.put('/lego_set/update/:lego_set_id', controller.EditLegoSet)
 // Router.delete('/lego_set/delete/:lego_set_id', middleware.stripToken, middleware.verifyToken, controller.DeleteLegoSet)
 Router.delete('/lego_set/delete/:lego_set_id', controller.DeleteLegoSet)
 
+Router.get('/search/set_name/:name', controller.SearchBySet)
+Router.get('/search/theme/:theme', controller.SearchByTheme)
+Router.get('/search/builder/:builder', controller.SearchByBuilder)
+
 
 
 module.exports = Router

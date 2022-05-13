@@ -74,8 +74,47 @@ const DeleteLegoSet = async (req, res) => {
       await Lego_set.destroy({ where: { id: remove }})
       res.send({message: `Your lego set titled "${set.dataValues.name}" has been deleted`})
     } catch (error) {
-    throw error
+      throw error
     }
+}
+
+const SearchBySet = async (req, res) => {
+  try {
+    const search = req.params.name
+    const sets = await Lego_set.findAll({
+      where: { name: {[Op.iLike]: `%${search}%`}},
+      include: [{model: User, attributes: ['username']}]
+    })
+    res.send(sets)
+  } catch (error) {
+    throw error
+  }
+}
+
+const SearchByTheme = async (req, res) => {
+  try {
+    const search = req.params.theme
+    const sets = await Lego_set.findAll({
+      where: { theme: {[Op.iLike]: `%${search}%`}},
+      include: [{model: User, attributes: ['username']}]
+    })
+    res.send(sets)
+  } catch (error) {
+    throw error
+  }
+}
+
+const SearchByBuilder = async (req, res) => {
+  try {
+    const search = req.params.builder
+    const sets = await Lego_set.findAll({
+      where: { theme: {[Op.iLike]: `%${search}%`}},
+      include: [{model: User, attributes: ['username']}]
+    })
+    res.send(sets)
+  } catch (error) {
+    throw error
+  }
 }
 
 module.exports = {
@@ -85,4 +124,7 @@ module.exports = {
     CreateLegoSet,
     EditLegoSet,
     DeleteLegoSet,
+    SearchBySet,
+    SearchByTheme,
+    SearchByBuilder,
 }

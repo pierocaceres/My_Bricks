@@ -5,7 +5,7 @@
                 <v-flex row wrap>
                     <v-flex md6>
                         <!-- <v-img :src='legoSet.picture' height='250' contain ></v-img> -->
-                        <v-carousel height='250px' hide-delimiters cycle>
+                        <v-carousel height='250px' hide-delimiters cycle interval="3000">
                             <v-carousel-item
                             v-for="(image,i) in legoSet.picture"
                             :key="i"

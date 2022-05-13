@@ -54,7 +54,7 @@
                         ></v-textarea>
                     </v-col>
                     <v-col cols="12" sm="6">
-                        <v-carousel height='200' hide-delimiters>
+                        <v-carousel height='200' hide-delimiters cycle interval="3000">
                             <v-carousel-item
                             v-for="(image,i) in images"
                             :key="i"
@@ -73,18 +73,6 @@
                         @click:append-outer='addImage()'
                         required
                         ></v-text-field>
-                        <!-- <template>
-                        <v-file-input
-                            accept="image/*"
-                            label="Click here to upload images"
-                            v-modal="file_path"
-                            small-chips 
-                            multiple
-                            prepend-icon="mdi-camera"
-                            append-outer-icon='mdi-send'
-                            @click:append-outer='addFile()'
-                        ></v-file-input>
-                        </template> -->
                         <v-chip
                         v-for="(image, i) in images"
                         :key="i"
@@ -143,7 +131,6 @@ export default {
     }),
     methods:{
         addImage() {
-            // alert(this.image_path + this.difficulty)
             this.images.push(this.image_path)
             this.image_count++
             this.image_path = ''
