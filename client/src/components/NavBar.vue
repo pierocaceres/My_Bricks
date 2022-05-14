@@ -3,14 +3,14 @@
         <v-app-bar app elevate-on-scroll >
             <v-app-bar-nav-icon @click="showDrawer()" class='d-md-none'></v-app-bar-nav-icon>
             <v-app-bar-title class="text-uppercase" style="cursor: pointer;" >
-                <span class="font-weight-light" @click="goHome()" :cursor='pointer'>My</span>
+                <span class="font-weight-light" @click="goHome()" cursor='pointer'>My</span>
                 <span @click="goHome()">Bricks</span>
             </v-app-bar-title>
             <v-spacer></v-spacer>
 
             <v-menu tyle="width: 60px" transition='slide-y-transition' open-on-hover >
                 <template v-slot:activator='{on}'>
-                    <v-form @submit="sendSearch" >
+                    <v-form @submit.prevent="sendSearch" >
                         <v-text-field :label='searchMessage()' v-model='search' solo dense rounded clearable v-if="user" prepend-inner-icon='mdi-magnify' class='py-3 mt-6' @click:prepend-inner="sendSearch" @change="sendSearch">
                         <template #append>
                             <v-btn fab depressed x-small v-on='on' color='white'>
@@ -47,7 +47,7 @@
                         <v-icon left>{{link.icon}}</v-icon>
                     </v-list-item-action>
                     <v-list-item-content>
-                        <v-list-tile-title>{{link.text}}</v-list-tile-title>
+                        <v-list-item-title>{{link.text}}</v-list-item-title>
                     </v-list-item-content>
                 </v-list-item>
             </v-list>
@@ -62,7 +62,7 @@ import PopUp from './PopUp.vue'
 const BASE_URL = 'http://localhost:3001'
 
 export default {
-    props: ['BASE_URL'],
+    props: ['BASE_URL', 'getAllSets'],
     data: () => ({
         user: true,
         drawer: false,
@@ -78,9 +78,12 @@ export default {
     }),
     components: { PopUp },
     mounted() {
-        this.initialValue()
+
     },
     methods:{
+        // getAllSets() {
+        //     this.$emit('getAllSets')
+        // },
         updateLegoSets(set) {
             this.$emit('updateLegoSets', set)
         },
@@ -91,7 +94,9 @@ export default {
         goHome() {
             if(this.user){
                 this.search = ''
+                this.getAllSets()
                 this.$router.push(`/feed`)
+
             }else{
                 this.$router.push(`/`)
             }
@@ -102,13 +107,14 @@ export default {
         searchMessage(){
             return this.message = `Search by ${this.searchBy}`
         },
-        async sendSearch(event) {
-            event.preventDefault()
+        async sendSearch() {
+            // event.preventDefault()
 
-            if(this.search == ''){
-                const sets = await axios.get(`${BASE_URL}/app/lego_set/all`)
-                this.updateLegoSets(sets.data)
-            }else if(this.searchBy == 'Lego Set Name'){
+            // if(this.search == ''){
+            //     const sets = await axios.get(`${BASE_URL}/app/lego_set/all`)
+            //     this.updateLegoSets(sets.data)
+            // }else 
+            if(this.searchBy == 'Lego Set'){
                 const sets = await axios.get(`${BASE_URL}/app/search/set_name/${this.search}`)
                 if(sets.data.length > 0){
                     this.updateLegoSets(sets.data)

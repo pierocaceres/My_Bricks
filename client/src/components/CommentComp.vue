@@ -4,6 +4,7 @@
             <span class="white--text">{{editUser.User.username[0].toUpperCase()}}</span>
         </v-avatar>
         <div class='pl-5' v-if="!edit">{{editUser.response}}</div>
+        <!-- Change the user_id of the loggedin user -->
         <v-icon right v-if="editUser.user_id == 1 && !edit" @click="edit = !edit">mdi-pencil</v-icon>
         <v-form v-if='edit' style='width: 100%' class='pl-5' @submit="submitComment">
             <v-text-field
@@ -13,7 +14,7 @@
                 filled
                 clearable
                 type="text"
-                @click:clear="edit = !edit"
+                @click:clear='resetValue'
                 @click:append='submitComment'
                 @click:append-outer='deleteComment'
             ></v-text-field>      
@@ -44,15 +45,19 @@ export default {
             this.editUser = this.user
             this.editComment = this.editUser.response
         },
+        resetValue() {
+            this.editComment = this.editUser.response
+            this.edit = !this.edit
+        },
         async submitComment(){
-            // Create Payload
             const payload = {
                 response: this.editComment
             }
             await axios.put(`${this.BASE_URL}/app/comment/edit/${this.editUser.id}`, payload)
-            this.getSet()
-            this.edit = false
-            // window.location.reload()
+
+            // this.getSet()
+            // this.edit = false
+            window.location.reload()
             
         },
         async deleteComment() {

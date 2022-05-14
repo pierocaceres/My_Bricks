@@ -1,6 +1,6 @@
 <template>
   <v-app >
-    <NavBar @updateLegoSets='updateLegoSets'/>
+    <NavBar @updateLegoSets='updateLegoSets' :getAllSets='getAllSets'/>
     
     <v-main>
       <router-view :legoSets="legoSets" :BASE_URL="BASE_URL"></router-view>
