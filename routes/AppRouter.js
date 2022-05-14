@@ -1,12 +1,11 @@
 const Router = require('express').Router()
 const controller = require('../controller/AllController')
-// const authController = require('../controller/AuthController')
 // const middleware = require('../middleware')
 
 //##################  AUTHENTICATION ROUTE  ######################//
 // Router.post('/register', authController.Register)
+Router.post('/login', controller.Login)
 // Router.put('/logout', authController.Logout)
-// Router.post('/login', authController.Login)
 // Router.get('/session', middleware.stripToken, middleware.verifyToken, authController.CheckSession)
 
 //##################  LEGO SET ROUTE  ######################//

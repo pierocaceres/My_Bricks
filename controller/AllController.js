@@ -1,6 +1,18 @@
 const { User, Lego_set, Comments} = require('../models')
 const { Op, sequelize, } = require("sequelize");
 
+const Login = async (req, res) => {
+  try{
+    const user = await User.findOne({
+      where: {username: req.body.username},
+      raw: true
+    })
+    if( user && (req.body.password) )
+  }catch (error){
+    throw error
+  }
+}
+
 const GetAllLegoSets = async (req, res) => {
     try {
         const sets = await Lego_set.findAll({
@@ -150,6 +162,7 @@ const DeleteComment = async (req, res) => {
 }
 
 module.exports = {
+    Login,
     GetAllLegoSets,
     GetLegoSetByUserId,
     GetLegoSetById,
