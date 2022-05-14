@@ -174,7 +174,7 @@ export default {
                 theme: this.theme,
                 build_progress: this.build_progress,
                 // Push the suers ID below
-                user_id: 1
+                // user_id: 1
             }
             await axios.put(`${BASE_URL}/app/lego_set/update/${this.id}`, payload)
             this.dialog = false

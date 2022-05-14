@@ -118,6 +118,37 @@ const SearchByBuilder = async (req, res) => {
   }
 }
 
+const AddComment = async (req, res) => {
+  try{
+    await Comments.create({...req.body})
+    res.send({ msg: 'Comment succesfully posted' })
+  } catch (error) {
+    throw error
+  }
+}
+
+const EditComment = async (req, res) => {
+  try {
+    const update = req.params.comment_id
+    const comment = await Comments.findByPk(update)
+    comment.update({...req.body})
+    res.send(comment)
+  } catch (error) {
+    throw error
+  }
+}
+
+const DeleteComment = async (req, res) => {
+  try {
+    const remove = req.params.comment_id
+    const comment = await Comments.findOne({attributes: ["response"], where: { id: remove }})
+    await Comments.destroy({ where: { id: remove }})
+    res.send({message: `Comment "${comment.dataValues.response}" has been deleted`})
+  } catch (error) {
+    throw error
+  }
+}
+
 module.exports = {
     GetAllLegoSets,
     GetLegoSetByUserId,
@@ -128,4 +159,7 @@ module.exports = {
     SearchBySet,
     SearchByTheme,
     SearchByBuilder,
+    AddComment,
+    EditComment,
+    DeleteComment,
 }

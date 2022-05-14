@@ -43,26 +43,27 @@
                         <!-- Insert the logged-in initial below -->
                         <span class="white--test"></span>
                     </v-avatar>
-                    <v-form style='width: 100%' class='pl-5'>
+                    <v-form style='width: 100%' class='pl-5' @submit="submitComment">
                         <v-text-field
                             v-model="message"
                             :append-outer-icon="message ? 'mdi-send' : ''"
-                            :prepend-icon="icon"
                             filled
                             clearable
                             label="Leave a Comment"
                             type="text"
-                            @click:append-outer='submitComment()'
+                            @click:append-outer='submitComment'
                         ></v-text-field>      
                     </v-form>
                 </div>
-                <div v-for='user in comments' :key='user.id'>
-                    <div class='d-inline-flex'>
+                <div v-for='user in comments' :key='user.id' class="my-3" >
+                    <!-- <div class='d-inline-flex'>
                         <v-avatar color='primary' size='52'>
                             <span class="white--text">{{user.User.username[0].toUpperCase()}}</span>
                         </v-avatar>
                         <div class='pl-5'>{{user.response}}</div>
-                    </div>
+                        <v-icon right v-if="user.user_id == 1">mdi-pencil</v-icon>
+                    </div> -->
+                    <CommentComp :user='user' style='width: 100%' :BASE_URL='BASE_URL' :getSet='getSet'/>
                 </div>
             </v-card>
         </v-layout>
@@ -71,18 +72,20 @@
 
 <script>
 import axios from 'axios'
+import CommentComp from '../components/CommentComp.vue'
 
-const BASE_URL = 'http://localhost:3001'
+// const BASE_URL = 'http://localhost:3001'
 
 export default {
     name: 'PostPage',
     data: () => ({
+        BASE_URL: 'http://localhost:3001',
         legoSet: [],
         comments: [],
         message: '',
     }),
     components: {
-        
+        CommentComp,
     },
     mounted() {
         this.getSet()
@@ -90,15 +93,21 @@ export default {
     methods: {
         async getSet() {
             const setID = this.$route.params.set_id
-            const set = await axios.get(`${BASE_URL}/app/lego_set/${setID}`)
-            console.log(set.data)
-            console.log(set.data.Comments)
+            const set = await axios.get(`${this.BASE_URL}/app/lego_set/${setID}`)
             this.legoSet = set.data
             this.comments = set.data.Comments
         },
-        submitComment() {
-            alert(`${this.message}`)
+        async submitComment(e) {
+            e.preventDefault()
+            const payload = {
+                response: this.message,
+                // Update with the logged in user.id
+                user_id: 1,
+                lego_set_id: this.$route.params.set_id
+            }
+            await axios.post(`${this.BASE_URL}/app/comment/post`, payload)
             this.message = ''
+            this.getSet()
         }
     }
 }

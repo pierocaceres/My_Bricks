@@ -37,6 +37,7 @@ const BASE_URL = 'http://localhost:3001'
 
 export default {
     name: 'MyProfile',
+    props: [],
     data: () =>({
         legoSets: [],
     }),

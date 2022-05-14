@@ -30,6 +30,8 @@ Router.get('/search/set_name/:name', controller.SearchBySet)
 Router.get('/search/theme/:theme', controller.SearchByTheme)
 Router.get('/search/builder/:builder', controller.SearchByBuilder)
 
-
+Router.post('/comment/post', controller.AddComment)
+Router.put('/comment/edit/:comment_id', controller.EditComment)
+Router.delete('/comment/delete/:comment_id', controller.DeleteComment)
 
 module.exports = Router

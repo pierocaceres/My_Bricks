@@ -23,27 +23,20 @@
 </template>
 
 <script>
-// import axios from 'axios'
-
-// const BASE_URL = 'http://localhost:3001'
 
 export default {
     name: 'FeedPage',
     props: ['legoSets'],
     data: () => ({
-        // legoSets: [],
+
     }),
     components: {
 
     },
     mounted() {
-        // this.getAllSets()
+
     },
     methods: {
-        // async getAllSets() {
-        //     const sets = await axios.get(`${BASE_URL}/app/lego_set/all`)
-        //     this.legoSets = sets.data
-        // },
         goToSet(id){
             this.$router.push(`/set/${id}`)
         }

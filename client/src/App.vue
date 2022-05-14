@@ -3,7 +3,7 @@
     <NavBar @updateLegoSets='updateLegoSets'/>
     
     <v-main>
-      <router-view :legoSets="legoSets"></router-view>
+      <router-view :legoSets="legoSets" :BASE_URL="BASE_URL"></router-view>
     </v-main>
   </v-app>
 </template>
@@ -12,7 +12,7 @@
 import axios from 'axios'
 import NavBar from './components/NavBar.vue'
 
-const BASE_URL = 'http://localhost:3001'
+// const BASE_URL = 'http://localhost:3001'
 
 export default {
   name: 'App',
@@ -20,7 +20,8 @@ export default {
   components: {NavBar},
 
   data: () => ({
-    legoSets: []
+    legoSets: [],
+    BASE_URL: 'http://localhost:3001'
   }),
   mounted() {
         // Insert methods here by using: this.methodName()
@@ -28,7 +29,7 @@ export default {
   },
   methods: {
     async getAllSets() {
-        const sets = await axios.get(`${BASE_URL}/app/lego_set/all`)
+        const sets = await axios.get(`${this.BASE_URL}/app/lego_set/all`)
         this.legoSets = sets.data
     },
     updateLegoSets(sets) {

@@ -10,8 +10,8 @@
 
             <v-menu tyle="width: 60px" transition='slide-y-transition' open-on-hover >
                 <template v-slot:activator='{on}'>
-                    <v-form @submit="sendSearch">
-                        <v-text-field :label='searchMessage()' v-model='search' solo dense rounded clearable v-if="user" prepend-inner-icon='mdi-magnify' class='py-3 mt-6' @click:prepend-inner="sendSearch">
+                    <v-form @submit="sendSearch" >
+                        <v-text-field :label='searchMessage()' v-model='search' solo dense rounded clearable v-if="user" prepend-inner-icon='mdi-magnify' class='py-3 mt-6' @click:prepend-inner="sendSearch" @change="sendSearch">
                         <template #append>
                             <v-btn fab depressed x-small v-on='on' color='white'>
                                 <v-icon>mdi-dots-vertical</v-icon>
@@ -62,13 +62,13 @@ import PopUp from './PopUp.vue'
 const BASE_URL = 'http://localhost:3001'
 
 export default {
-    // props: ['legoSets'],
+    props: ['BASE_URL'],
     data: () => ({
         user: true,
         drawer: false,
         search: '',
-        category: ['Lego Set Name', 'Theme', 'Builder'],
-        searchBy: 'Lego Set Name',
+        category: ['Lego Set', 'Theme', 'Builder'],
+        searchBy: 'Lego Set',
         message: ``,
         links: [
             {icon: 'mdi-account-box', text:'Profile', route: '/user/myprofile'},
@@ -90,6 +90,7 @@ export default {
         },
         goHome() {
             if(this.user){
+                this.search = ''
                 this.$router.push(`/feed`)
             }else{
                 this.$router.push(`/`)
@@ -109,7 +110,6 @@ export default {
                 this.updateLegoSets(sets.data)
             }else if(this.searchBy == 'Lego Set Name'){
                 const sets = await axios.get(`${BASE_URL}/app/search/set_name/${this.search}`)
-                // console.log(sets.length)
                 if(sets.data.length > 0){
                     this.updateLegoSets(sets.data)
                     this.$router.push(`/feed`)
