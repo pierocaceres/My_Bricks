@@ -11,7 +11,7 @@
             <v-menu tyle="width: 60px" transition='slide-y-transition' open-on-hover >
                 <template v-slot:activator='{on}'>
                     <v-form @submit.prevent="sendSearch" >
-                        <v-text-field :label='searchMessage()' v-model='search' solo dense rounded clearable v-if="user" prepend-inner-icon='mdi-magnify' class='py-3 mt-6' @click:prepend-inner="sendSearch" @change="sendSearch">
+                        <v-text-field :label='searchMessage()' v-model='search' solo dense rounded clearable v-if="loggedUser != null" prepend-inner-icon='mdi-magnify' class='py-3 mt-6' @click:prepend-inner="sendSearch" @change="sendSearch">
                         <template #append>
                             <v-btn fab depressed x-small v-on='on' color='white'>
                                 <v-icon>mdi-dots-vertical</v-icon>
@@ -30,10 +30,10 @@
 
             <v-spacer></v-spacer>
 
-            <PopUp />
+            <PopUp v-if="loggedUser != null"/>
 
             <div class='d-none d-md-flex' v-for='link in links' :key='link.text' >
-                <v-btn plain v-if="user" @click="route(link.route)"> 
+                <v-btn plain v-if="loggedUser != null" @click="route(link.route)"> 
                     <span>{{link.text}}</span>
                     <v-icon right>{{link.icon}}</v-icon>
                 </v-btn>
@@ -62,9 +62,9 @@ import PopUp from './PopUp.vue'
 const BASE_URL = 'http://localhost:3001'
 
 export default {
-    props: ['BASE_URL', 'getAllSets'],
+    props: ['BASE_URL', 'getAllSets', 'loggedUser'],
     data: () => ({
-        user: true,
+        user: false,
         drawer: false,
         search: '',
         category: ['Lego Set', 'Theme', 'Builder'],
@@ -77,17 +77,31 @@ export default {
         set: []
     }),
     components: { PopUp },
-    mounted() {
-
-    },
+    // mounted() {
+    //     this.checkUser()
+    // },
+    // updated() {
+    //     this.loggedUser
+    //     this.checkUser()
+    // },
+    // watch() {
+    //     this.loggedUser
+    //     this.checkUser()
+    // },
     methods:{
         // getAllSets() {
         //     this.$emit('getAllSets')
+        // },
+        // checkUser(){
+        //     if(this.loggedUser != null){
+        //         this.user = true
+        //     }
         // },
         updateLegoSets(set) {
             this.$emit('updateLegoSets', set)
         },
         logOut() {
+            // this.user = false
             this.$emit('logOut')
         },
         showDrawer(){

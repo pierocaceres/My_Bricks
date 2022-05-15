@@ -1,6 +1,6 @@
 <template>
   <v-app >
-    <NavBar @updateLegoSets='updateLegoSets' @logOut='logOut' :getAllSets='getAllSets'/>
+    <NavBar @updateLegoSets='updateLegoSets' @logOut='logOut' :getAllSets='getAllSets' :loggedUser="loggedUser"/>
     
     <v-main>
       <router-view :legoSets="legoSets" :BASE_URL="this.BASE_URL" :loggedUser='this.loggedUser' @setUser='setUser'></router-view>
@@ -38,6 +38,9 @@ export default {
         // Insert methods here by using: this.methodName()
         this.checkToken()
         this.getAllSets()
+  },
+  watch() {
+    this.NavBar
   },
   methods: {
     async getAllSets() {
