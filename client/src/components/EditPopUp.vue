@@ -143,6 +143,9 @@ export default {
             this.image_count = this.image_path.length
             this.image_path = []
         },
+        getUserSets(){
+            this.$emit('getUserSets')
+        },
         updateRating(value) {
             this.difficulty = value
         },
@@ -151,12 +154,14 @@ export default {
         },
         close() {
             this.dialog = false
-            window.location.reload()
+            this.getUserSets()
+            // window.location.reload()
         },
         async deleteSet() {
             await axios.delete(`${BASE_URL}/app/lego_set/delete/${this.id}`)
             this.dialog = false
-            window.location.reload()
+            this.getUserSets()
+            // window.location.reload()
         },
         setValues() {
             this.name =  this.names

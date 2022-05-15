@@ -64,7 +64,6 @@ const BASE_URL = 'http://localhost:3001'
 export default {
     props: ['BASE_URL', 'getAllSets', 'loggedUser'],
     data: () => ({
-        // user: false,
         drawer: false,
         search: '',
         category: ['Lego Set', 'Theme', 'Builder'],
@@ -77,31 +76,12 @@ export default {
         set: []
     }),
     components: { PopUp },
-    // mounted() {
-    //     this.checkUser()
-    // },
-    // updated() {
-    //     this.loggedUser
-    //     this.checkUser()
-    // },
-    // watch() {
-    //     this.loggedUser
-    //     this.checkUser()
-    // },
+    
     methods:{
-        // getAllSets() {
-        //     this.$emit('getAllSets')
-        // },
-        // checkUser(){
-        //     if(this.loggedUser != null){
-        //         this.user = true
-        //     }
-        // },
         updateLegoSets(set) {
             this.$emit('updateLegoSets', set)
         },
         logOut() {
-            // this.user = false
             this.$emit('logOut')
         },
         showDrawer(){
@@ -109,7 +89,7 @@ export default {
             else{ this.drawer = true}
         },
         goHome() {
-            if(this.user){
+            if(this.loggedUser != null){
                 this.search = ''
                 this.getAllSets()
                 this.$router.push(`/feed`)
@@ -131,12 +111,6 @@ export default {
             return this.message = `Search by ${this.searchBy}`
         },
         async sendSearch() {
-            // event.preventDefault()
-
-            // if(this.search == ''){
-            //     const sets = await axios.get(`${BASE_URL}/app/lego_set/all`)
-            //     this.updateLegoSets(sets.data)
-            // }else 
             if(this.searchBy == 'Lego Set'){
                 const sets = await axios.get(`${BASE_URL}/app/search/set_name/${this.search}`)
                 if(sets.data.length > 0){
