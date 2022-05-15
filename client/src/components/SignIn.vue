@@ -49,7 +49,7 @@ import axios from "axios"
 
 export default {
     name: 'SignIn',
-    props: ['BASE_URL'],
+    props: ['BASE_URL', 'loggedUser'],
     data: () => ({
         username: '',
         password: '',
@@ -62,18 +62,21 @@ export default {
       changeSignIn() {
           this.$emit('changeSignIn')
       },
+      setUser(user){
+        this.$emit('setUser', user)
+      },
       async handleSubmit() {
-          // alert(`Form Submitted! ${this.username} ${this.password}`)
           const payload = {
             username: this.username,
             password: this.password
           }
 
           const user = await axios.post(`${this.BASE_URL}/app/login`, payload)
-          console.log(user)
-          // localStorage.setItem('token', user.data.user)
+          localStorage.setItem('token', user.data.token)
+          this.setUser(user.data.user)
           this.username = ''
           this.password = ''
+          this.$router.push('/feed')
       },
     }
 }

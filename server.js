@@ -2,6 +2,7 @@ const express = require('express')
 const cors = require('cors')
 const logger = require('morgan')
 const bodyParser = require('body-parser')
+require('dotenv').config();
 const AppRouter = require('./routes/AppRouter')
 const app = express()
 

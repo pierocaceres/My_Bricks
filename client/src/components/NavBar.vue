@@ -87,6 +87,9 @@ export default {
         updateLegoSets(set) {
             this.$emit('updateLegoSets', set)
         },
+        logOut() {
+            this.$emit('logOut')
+        },
         showDrawer(){
             if(this.drawer){this.drawer = false}
             else{ this.drawer = true}
@@ -102,7 +105,13 @@ export default {
             }
         },
         route(path) {
-             this.$router.push(path)
+            if(path == '/'){
+                this.logOut()
+                this.$router.push(path)
+            }else{
+                this.$router.push(path)
+            }
+             
         },
         searchMessage(){
             return this.message = `Search by ${this.searchBy}`

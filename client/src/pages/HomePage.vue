@@ -13,10 +13,10 @@
           </v-card>
         </v-flex>
         <v-flex xs6 sm2 md6 v-if='signin'>
-            <SignIn @changeSignIn='changeSignIn()' :BASE_URL="BASE_URL"/>
+            <SignIn :BASE_URL="BASE_URL" :loggedUser='loggedUser' @changeSignIn='changeSignIn()' @setUser='setUser'/>
           </v-flex>
           <v-flex xs6 sm2 md6 v-if='register'>
-            <Register @changeRegister='changeRegister()' @changeSignIn='changeSignIn()'/>
+            <Register :BASE_URL="BASE_URL" @changeRegister='changeRegister()' @changeSignIn='changeSignIn()'/>
           </v-flex>
     </v-layout>
   </div>
@@ -28,7 +28,7 @@
 
   export default {
     name: 'HomePage',
-    props: ['BASE_URL'],
+    props: ['BASE_URL', 'loggedUser'],
     data: () => ({
       signin: false,
       register: false,
@@ -47,6 +47,9 @@
       changeRegister() {
         this.register = !this.register
       },
+      setUser(user) {
+        this.$emit('setUser', user)
+      }
     }        
   }
 </script>

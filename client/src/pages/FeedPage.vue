@@ -26,7 +26,7 @@
 
 export default {
     name: 'FeedPage',
-    props: ['legoSets'],
+    props: ['legoSets', 'loggedUser'],
     data: () => ({
 
     }),
@@ -39,7 +39,7 @@ export default {
     methods: {
         goToSet(id){
             this.$router.push(`/set/${id}`)
-        }
+        },
     }
 }
 </script>

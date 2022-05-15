@@ -67,8 +67,11 @@
 </template>
 
 <script>
+import axios from "axios"
+
 export default {
     name: 'RegisterComp',
+    props: ['BASE_URL'],
     data: () => ({
         name: '',
         username: '',
@@ -87,14 +90,25 @@ export default {
         changeSignIn() {
             this.$emit('changeSignIn')
         },
-        handleSubmit() {
-          alert(`Form Submitted! ${this.name} ${this.username} ${this.password}`)
-          this.name = ''
-          this.username = ''
-          this.password = ''
-          this.confirmPassword = ''
-          this.changeSignIn()
-          this.changeRegister()
+        async handleSubmit() {
+          const payload = {
+            name: this.name,
+            username: this.username,
+            password: this.password
+          }
+
+          const serverResponse = await axios.post(`${this.BASE_URL}/app/register`, payload)
+
+          if(serverResponse.data.message){
+            alert(serverResponse.data.message)
+          }else{
+            this.name = ''
+            this.username = ''
+            this.password = ''
+            this.confirmPassword = ''
+            this.changeSignIn()
+            this.changeRegister()
+          }
         },
     }
     

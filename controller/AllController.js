@@ -3,20 +3,16 @@ const { Op, sequelize, } = require("sequelize");
 const jwt = require('jsonwebtoken')
 const bcrypt = require('bcrypt')
 
-// const salt = process.env.VUE_APP_SALT_ROUNDS
-const salt = 12
-// const secret = process.env.VUE_APP_SECRET_PHRASE
-const secret = 'MyBricksmYbRICKS'
+const salt = parseInt(process.env.SALT_ROUNDS)
+const secret = process.env.SECRET_PHRASE
 
 const Register = async (req, res) => {
   try {
     const user = await User.findOne({ where: {username: req.body.username} })
-    
-    if (user) {
+    if(user) {
       return res.send({ message: "Username already in use"})
     }
 
-    console.log(req.body.password, salt)
     let hashPassword = await bcrypt.hash(req.body.password, salt)
     const payload = {
       name: req.body.name,
@@ -24,6 +20,7 @@ const Register = async (req, res) => {
       password: hashPassword
     }
     const newUser = await User.create({ ...payload })
+    console.log(newUser)
     res.send(newUser)
   } catch (error) {
     throw error
@@ -41,12 +38,43 @@ const Login = async (req, res) => {
         id: user.id,
         username: user.username
       }
-      const token = jwt.sign(payload, process.env.VUE_APP_SECRET)
+      const token = jwt.sign(payload, secret)
       return res.send({user: payload, token})
     } 
     res.status(401).send({ status: 'Error', msg: 'Unauthorized' })
   }catch (error){
     throw error
+  }
+}
+
+const CheckSession = async (req, res) => {
+  const { payload } = res.locals
+  res.send(payload)
+}
+
+const StripToken = (req, res, next) => {
+  try{
+      const token = req.headers['authorization'].split(' ')[1]
+      if(token){
+          res.locals.token = token
+          return next()
+      }
+  }catch(error){
+      res.status(401).send({ status: 'Error', msg: 'Unauthorized'})
+  }
+}
+
+const VerifyToken = (req, res, next) => {
+  const { token } = res.locals
+  try{
+      let payload = jwt.verify(token, secret)
+      if(payload){
+          res.locals.payload = payload
+          return next()
+      }
+      res.status(401).send({ status: 'Error', msg: 'Unauthorized'})
+  }catch(error){
+      res.status(401).send({ status: 'Error', msg: 'Unauthorized' })
   }
 }
 
@@ -201,6 +229,9 @@ const DeleteComment = async (req, res) => {
 module.exports = {
     Register,
     Login,
+    CheckSession,
+    StripToken,
+    VerifyToken,
     GetAllLegoSets,
     GetLegoSetByUserId,
     GetLegoSetById,
