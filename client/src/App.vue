@@ -1,5 +1,5 @@
 <template>
-  <v-app >
+  <v-app>
     <NavBar @updateLegoSets='updateLegoSets' @logOut='logOut' :getAllSets='getAllSets' :loggedUser="loggedUser"/>
     
     <v-main>

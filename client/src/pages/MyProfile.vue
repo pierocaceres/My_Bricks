@@ -1,5 +1,5 @@
 <template>
-    <div class='my-page ma-16 '>
+    <div class='my-page ma-16 ' v-if="loggedUser != null">
         <div class='text-h1-subtitle-1'>My Profile</div>
         <v-container class='my-5'>
             <v-card v-for='set in legoSets' :key='set.id'  class='my-9'>
@@ -22,12 +22,15 @@
             </v-card>
         </v-container>
     </div>
-   
+    <div v-else>
+        <PleaseLogIn />
+    </div>
 </template>
 
 <script>
 import axios from 'axios'
 import EditPopUp from '../components/EditPopUp.vue'
+import PleaseLogIn from '../components/PleaseLogIn.vue'
 
 export default {
     name: 'MyProfile',
@@ -38,6 +41,7 @@ export default {
     }),
     components: {
         EditPopUp,
+        PleaseLogIn
     },
     mounted() {
         this.setId()

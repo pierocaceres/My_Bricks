@@ -1,5 +1,5 @@
 <template>
-    <v-container>
+    <v-container v-if="loggedUser != null">
         <v-layout column justify-center align-center class='mt-16'>
             <v-card flat width='75vw' class='my-10'>
                 <v-flex row wrap>
@@ -60,11 +60,16 @@
             </v-card>
         </v-layout>
     </v-container>
+    <div v-else>
+        <PleaseLogIn />
+    </div>
 </template>
 
 <script>
 import axios from 'axios'
 import CommentComp from '../components/CommentComp.vue'
+import PleaseLogIn from "../components/PleaseLogIn.vue"
+
 
 export default {
     name: 'PostPage',
@@ -76,6 +81,7 @@ export default {
     }),
     components: {
         CommentComp,
+        PleaseLogIn
     },
     mounted() {
         this.getSet()

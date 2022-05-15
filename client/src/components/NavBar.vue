@@ -29,11 +29,17 @@
             </v-menu>
 
             <v-spacer></v-spacer>
+            <v-switch
+                v-model="$vuetify.theme.dark"
+                persistent-hint
+                append-icon="mdi-moon-waxing-crescent"
+                prepend-icon="mdi-white-balance-sunny"
+            ></v-switch>
 
             <PopUp v-if="loggedUser != null"/>
 
             <div class='d-none d-md-flex' v-for='link in links' :key='link.text' >
-                <v-btn plain v-if="loggedUser != null" @click="route(link.route)"> 
+                <v-btn depressed v-if="loggedUser != null" @click="route(link.route)"> 
                     <span>{{link.text}}</span>
                     <v-icon right>{{link.icon}}</v-icon>
                 </v-btn>

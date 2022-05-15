@@ -1,5 +1,5 @@
 <template>
-    <v-container fluid>
+    <v-container fluid v-if="loggedUser != null">
         <h2 class='text-center pt-3'>The Latest</h2>
         <v-layout row wrap justify-space-around>
             <v-row dense>
@@ -20,9 +20,13 @@
             </v-row>
         </v-layout>
     </v-container>
+    <div v-else>
+        <PleaseLogIn />
+    </div>
 </template>
 
 <script>
+import PleaseLogIn from "../components/PleaseLogIn.vue"
 
 export default {
     name: 'FeedPage',
@@ -31,7 +35,7 @@ export default {
 
     }),
     components: {
-
+        PleaseLogIn
     },
     mounted() {
 
