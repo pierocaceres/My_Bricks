@@ -3,7 +3,7 @@
     <NavBar @updateLegoSets='updateLegoSets' :getAllSets='getAllSets'/>
     
     <v-main>
-      <router-view :legoSets="legoSets" :BASE_URL="BASE_URL"></router-view>
+      <router-view :legoSets="legoSets" :BASE_URL="this.BASE_URL"></router-view>
     </v-main>
   </v-app>
 </template>
@@ -21,7 +21,9 @@ export default {
 
   data: () => ({
     legoSets: [],
-    BASE_URL: 'http://localhost:3001'
+    BASE_URL: 'http://localhost:3001',
+    loggedUser: '',
+
   }),
   mounted() {
         // Insert methods here by using: this.methodName()

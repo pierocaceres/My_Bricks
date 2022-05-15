@@ -13,7 +13,7 @@
           </v-card>
         </v-flex>
         <v-flex xs6 sm2 md6 v-if='signin'>
-            <SignIn @changeSignIn='changeSignIn()'/>
+            <SignIn @changeSignIn='changeSignIn()' :BASE_URL="BASE_URL"/>
           </v-flex>
           <v-flex xs6 sm2 md6 v-if='register'>
             <Register @changeRegister='changeRegister()' @changeSignIn='changeSignIn()'/>
@@ -28,6 +28,7 @@
 
   export default {
     name: 'HomePage',
+    props: ['BASE_URL'],
     data: () => ({
       signin: false,
       register: false,
@@ -36,7 +37,7 @@
       SignIn,
       Register,
     },
-    mouned() {
+    mounted() {
 
     },
     methods: {

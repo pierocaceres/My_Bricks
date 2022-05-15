@@ -45,26 +45,36 @@
 </template>
 
 <script>
+import axios from "axios"
+
 export default {
     name: 'SignIn',
-    props: [],
+    props: ['BASE_URL'],
     data: () => ({
         username: '',
         password: '',
         show: false,
     }),
-    components: {
-        
+    mounted() {
+
     },
     methods: {
-        changeSignIn() {
-            this.$emit('changeSignIn')
-        },
-        handleSubmit() {
-            alert(`Form Submitted! ${this.username} ${this.password}`)
-            this.username = ''
-            this.password = ''
-        },
+      changeSignIn() {
+          this.$emit('changeSignIn')
+      },
+      async handleSubmit() {
+          // alert(`Form Submitted! ${this.username} ${this.password}`)
+          const payload = {
+            username: this.username,
+            password: this.password
+          }
+
+          const user = await axios.post(`${this.BASE_URL}/app/login`, payload)
+          console.log(user)
+          // localStorage.setItem('token', user.data.user)
+          this.username = ''
+          this.password = ''
+      },
     }
 }
 </script>

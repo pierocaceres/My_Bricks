@@ -3,7 +3,7 @@ const controller = require('../controller/AllController')
 // const middleware = require('../middleware')
 
 //##################  AUTHENTICATION ROUTE  ######################//
-// Router.post('/register', authController.Register)
+Router.post('/register', controller.Register)
 Router.post('/login', controller.Login)
 // Router.put('/logout', authController.Logout)
 // Router.get('/session', middleware.stripToken, middleware.verifyToken, authController.CheckSession)
