@@ -64,7 +64,7 @@ const BASE_URL = 'http://localhost:3001'
 export default {
     props: ['BASE_URL', 'getAllSets', 'loggedUser'],
     data: () => ({
-        user: false,
+        // user: false,
         drawer: false,
         search: '',
         category: ['Lego Set', 'Theme', 'Builder'],

@@ -72,11 +72,15 @@ export default {
           }
 
           const user = await axios.post(`${this.BASE_URL}/app/login`, payload)
-          localStorage.setItem('token', user.data.token)
-          this.setUser(user.data.user)
-          this.username = ''
-          this.password = ''
-          this.$router.push('/feed')
+          if(user.message == 'Request failed with status code 401'){
+            alert('Incorrect username or password')
+          }else{
+            localStorage.setItem('token', user.data.token)
+            this.setUser(user.data.user)
+            this.username = ''
+            this.password = ''
+            this.$router.push('/feed')
+          }
       },
     }
 }

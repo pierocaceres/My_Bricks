@@ -32,15 +32,12 @@ export default {
   data: () => ({
     legoSets: [],
     BASE_URL: 'http://localhost:3001',
-    loggedUser: {},
+    loggedUser: null,
   }),
   mounted() {
         // Insert methods here by using: this.methodName()
         this.checkToken()
         this.getAllSets()
-  },
-  watch() {
-    this.NavBar
   },
   methods: {
     async getAllSets() {
