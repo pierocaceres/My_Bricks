@@ -2,7 +2,7 @@
     <v-dialog v-model='dialog' persistent width='600px' >
         
         <template v-slot:activator='{ on, attrs }'>
-            <v-btn fab depressed @click='editSet(set.id)' color='white' v-bind="attrs" v-on="on">
+            <v-btn fab depressed @click='editSet(set.id)' v-bind="attrs" v-on="on">
                 <v-icon>mdi-pencil</v-icon>
             </v-btn>
         </template>

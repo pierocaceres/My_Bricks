@@ -13,7 +13,7 @@
                     <v-form @submit.prevent="sendSearch" >
                         <v-text-field :label='searchMessage()' v-model='search' solo dense rounded clearable v-if="loggedUser != null" prepend-inner-icon='mdi-magnify' class='py-3 mt-6' @click:prepend-inner="sendSearch" @change="sendSearch">
                         <template #append>
-                            <v-btn fab depressed x-small v-on='on' color='white'>
+                            <v-btn fab depressed x-small v-on='on' >
                                 <v-icon>mdi-dots-vertical</v-icon>
                             </v-btn>
                         </template>
@@ -34,6 +34,7 @@
                 persistent-hint
                 append-icon="mdi-moon-waxing-crescent"
                 prepend-icon="mdi-white-balance-sunny"
+                class="mt-5"
             ></v-switch>
 
             <PopUp v-if="loggedUser != null"/>

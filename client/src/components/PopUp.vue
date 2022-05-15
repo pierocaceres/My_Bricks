@@ -1,16 +1,13 @@
 <template>
     <v-dialog v-model='dialog' persistent width='600px' >
         
-        <!-- <v-tooltip bottom > -->
-            <template v-slot:activator='{ on, attrs }'>
-                <v-btn class="mx-2 " fab x-small depressed v-bind="attrs" v-on="on">
-                    <v-icon >
-                        mdi-plus
-                    </v-icon>
-                </v-btn>
-            </template>
-            <!-- <span>Post a new lego set build</span> -->
-        <!-- </v-tooltip> -->
+        <template v-slot:activator='{ on, attrs }'>
+            <v-btn class="mx-2 " fab x-small depressed v-bind="attrs" v-on="on">
+                <v-icon >
+                    mdi-plus
+                </v-icon>
+            </v-btn>
+        </template>
 
         <v-card>
             <v-card-title>
