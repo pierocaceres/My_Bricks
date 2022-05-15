@@ -16,7 +16,7 @@
                         <div>{{set.theme}}</div>
                     </v-flex>
                     <v-flex xs12 sm4 md2 align-self-center>
-                        <EditPopUp :id='set.id' :names='set.name' :pictures='set.picture' :difficultys='set.difficulty' :themes='set.theme' :build='set.build_progress' @getUserSets='getUserSets'/>
+                        <EditPopUp :id='set.id' :names='set.name' :pictures='set.picture' :difficultys='set.difficulty' :themes='set.theme' :build='set.build_progress' :loggedUser='loggedUser' @getUserSets='getUserSets'/>
                     </v-flex>
                 </v-layout>
             </v-card>

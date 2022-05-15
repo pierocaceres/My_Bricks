@@ -4,9 +4,8 @@
             <span class="white--text">{{editUser.User.username[0].toUpperCase()}}</span>
         </v-avatar>
         <div class='pl-5' v-if="!edit">{{editUser.response}}</div>
-        <!-- Change the user_id of the loggedin user -->
-        <v-icon right v-if="editUser.user_id == 1 && !edit" @click="edit = !edit">mdi-pencil</v-icon>
-        <v-form v-if='edit' style='width: 100%' class='pl-5' @submit="submitComment">
+        <v-icon right v-if="editUser.user_id == loggedUser.id && !edit" @click="edit = !edit">mdi-pencil</v-icon>
+        <v-form v-if='edit' style='width: 100%' class='pl-5' @submit.prevent="submitComment">
             <v-text-field
                 v-model="editComment"
                 :append-outer-icon="editComment ? 'mdi-delete' : ''"
@@ -28,7 +27,7 @@ import axios from "axios"
 
 export default {
     name:'CommentComp',
-    props: ['user', 'BASE_URL', 'getSet' ],
+    props: ['user', 'BASE_URL', 'loggedUser' ],
     data: () => ({
         edit: false,
         editUser: {},
@@ -38,9 +37,12 @@ export default {
         this.initializeValue()
     },
     methods: {
-        // getSet() {
-        //     this.$emit('getSet')
-        // },
+        getSet() {
+            this.$emit('getSet')
+        },
+        updateSet() {
+            this.$emit('updateSet')
+        },
         async initializeValue() {
             this.editUser = this.user
             this.editComment = this.editUser.response
@@ -50,15 +52,12 @@ export default {
             this.edit = !this.edit
         },
         async submitComment(){
+            // this.edit = !this.edit
             const payload = {
                 response: this.editComment
             }
-            await axios.put(`${this.BASE_URL}/app/comment/edit/${this.editUser.id}`, payload)
-
-            // this.getSet()
-            // this.edit = false
-            window.location.reload()
-            
+            await axios.put(`${this.BASE_URL}/app/comment/edit/${this.user.id}`, payload)
+            this.getSet()            
         },
         async deleteComment() {
             await axios.delete(`${this.BASE_URL}/app/comment/delete/${this.editUser.id}`)

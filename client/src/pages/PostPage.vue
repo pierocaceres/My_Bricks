@@ -40,8 +40,7 @@
                 <div class='d-flex' width='100vw'>
                     <v-avatar color='primary' size='52' >
                         <!-- <v-img ></v-img> -->
-                        <!-- Insert the logged-in initial below -->
-                        <span class="white--test"></span>
+                        <span class="white--text">{{this.loggedUser.username[0].toUpperCase()}}</span>
                     </v-avatar>
                     <v-form style='width: 100%' class='pl-5' @submit="submitComment">
                         <v-text-field
@@ -56,14 +55,7 @@
                     </v-form>
                 </div>
                 <div v-for='user in comments' :key='user.id' class="my-3" >
-                    <!-- <div class='d-inline-flex'>
-                        <v-avatar color='primary' size='52'>
-                            <span class="white--text">{{user.User.username[0].toUpperCase()}}</span>
-                        </v-avatar>
-                        <div class='pl-5'>{{user.response}}</div>
-                        <v-icon right v-if="user.user_id == 1">mdi-pencil</v-icon>
-                    </div> -->
-                    <CommentComp :user='user' style='width: 100%' :BASE_URL='BASE_URL' :getSet='getSet'/>
+                    <CommentComp :user='user' style='width: 100%' :BASE_URL='BASE_URL' :loggedUser='loggedUser' @getSet='getSet' />
                 </div>
             </v-card>
         </v-layout>
@@ -74,12 +66,10 @@
 import axios from 'axios'
 import CommentComp from '../components/CommentComp.vue'
 
-// const BASE_URL = 'http://localhost:3001'
-
 export default {
     name: 'PostPage',
+    props: ['BASE_URL', 'loggedUser'],
     data: () => ({
-        BASE_URL: 'http://localhost:3001',
         legoSet: [],
         comments: [],
         message: '',
@@ -101,8 +91,7 @@ export default {
             e.preventDefault()
             const payload = {
                 response: this.message,
-                // Update with the logged in user.id
-                user_id: 1,
+                user_id: this.loggedUser.id,
                 lego_set_id: this.$route.params.set_id
             }
             await axios.post(`${this.BASE_URL}/app/comment/post`, payload)

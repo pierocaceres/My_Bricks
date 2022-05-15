@@ -122,7 +122,7 @@ const BASE_URL = 'http://localhost:3001'
 
 export default {
     name: 'EditPopUp',
-    props: ['id', 'names', 'pictures', 'difficultys', 'themes', 'build'],
+    props: ['id', 'names', 'pictures', 'difficultys', 'themes', 'build', 'loggedUser'],
     data: () => ({
         dialog: false,
         name: '',
@@ -155,13 +155,11 @@ export default {
         close() {
             this.dialog = false
             this.getUserSets()
-            // window.location.reload()
         },
         async deleteSet() {
             await axios.delete(`${BASE_URL}/app/lego_set/delete/${this.id}`)
             this.dialog = false
             this.getUserSets()
-            // window.location.reload()
         },
         setValues() {
             this.name =  this.names
@@ -178,12 +176,11 @@ export default {
                 difficulty: this.difficulty,
                 theme: this.theme,
                 build_progress: this.build_progress,
-                // Push the suers ID below
-                // user_id: 1
+                user_id: this.loggedUser.id
             }
             await axios.put(`${BASE_URL}/app/lego_set/update/${this.id}`, payload)
             this.dialog = false
-            window.location.reload()
+            this.getUserSets()
         },
     }
 }
