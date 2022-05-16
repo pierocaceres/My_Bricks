@@ -1,6 +1,6 @@
 # My Bricks
 
-<img src="./ReadMe Assests/My Bricks-logos logo.jpeg" alt="drawing" width="500" href='https://my-bricks-blog.herokuapp.com/'/>
+[<img src="./ReadMe Assests/My Bricks-logos logo.jpeg" alt="drawing" width="500" />](https://my-bricks-blog.herokuapp.com/)
 
 #### Created by: Piero Caceres | [LinkedIn](https://www.linkedin.com/in/pcace/)
 

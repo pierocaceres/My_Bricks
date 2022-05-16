@@ -30,8 +30,8 @@ export default {
 
   data: () => ({
     legoSets: [],
-    // BASE_URL: 'http://localhost:3001',
-    BASE_URL: 'https://my-bricks-database.herokuapp.com',
+    BASE_URL: 'http://localhost:3001',
+    // BASE_URL: 'https://my-bricks-database.herokuapp.com',
     loggedUser: null,
   }),
   mounted() {
