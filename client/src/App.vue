@@ -15,7 +15,6 @@ import NavBar from './components/NavBar.vue'
 axios.interceptors.request.use(
     (config) => {
         const token = localStorage.getItem('token')
-        console.log('hey')
         if(token){
             config.headers['authorization'] = `Bearer ${token}`
         }
@@ -31,7 +30,8 @@ export default {
 
   data: () => ({
     legoSets: [],
-    BASE_URL: 'http://localhost:3001',
+    // BASE_URL: 'http://localhost:3001',
+    BASE_URL: 'https://my-bricks-database.herokuapp.com',
     loggedUser: null,
   }),
   mounted() {

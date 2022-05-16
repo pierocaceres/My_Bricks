@@ -1,6 +1,6 @@
 # My Bricks
 
-<img src="./ReadMe Assests/My Bricks-logos logo.jpeg" alt="drawing" width="500"/>
+<img src="./ReadMe Assests/My Bricks-logos logo.jpeg" alt="drawing" width="500" href='https://my-bricks-blog.herokuapp.com/'/>
 
 #### Created by: Piero Caceres | [LinkedIn](https://www.linkedin.com/in/pcace/)
 
@@ -15,6 +15,7 @@ My Bricks is a full-stack app that will be developed using:
 2. Vuetify
 3. Express
 4. Sequelize
+5. PostgreSQL
 
 ## [Entity Relationship Diagram](https://lucid.app/lucidchart/ed3495b1-cb50-4c52-91ce-ce41339781a4/edit?beaconFlowId=C786414DF7969259&invitationId=inv_4ada3432-a4b6-44b7-9fb0-d08130af4e57&page=0_0#)
 
