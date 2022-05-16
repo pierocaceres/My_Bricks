@@ -143,6 +143,11 @@ export default {
             this.image_count = this.image_path.length
             this.image_path = []
         },
+        addImage() {
+            this.images.push(this.image_path)
+            this.image_count++
+            this.image_path = ''
+        },
         getUserSets(){
             this.$emit('getUserSets')
         },

@@ -37,7 +37,7 @@
                 class="mt-5"
             ></v-switch>
 
-            <PopUp v-if="loggedUser != null"/>
+            <PopUp v-if="loggedUser != null" :BASE_URL="BASE_URL" :loggedUser='loggedUser'/>
 
             <div class='d-none d-md-flex' v-for='link in links' :key='link.text' >
                 <v-btn depressed v-if="loggedUser != null" @click="route(link.route)"> 

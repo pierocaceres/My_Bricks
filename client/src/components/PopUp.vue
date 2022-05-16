@@ -114,6 +114,7 @@ const BASE_URL = 'http://localhost:3001'
 
 export default {
     name: 'PopUp',
+    props: ['BASE_URL', 'loggedUser'],
     data: () => ({
         dialog: false,
         name: '',
@@ -169,7 +170,7 @@ export default {
                 difficulty: this.difficulty,
                 theme: this.theme,
                 build_progress: this.build_progress,
-                user_id: 1
+                user_id: this.loggedUser.id
             }
             await axios.post(`${BASE_URL}/app/lego_set/create`, payload)
             this.dialog = false
