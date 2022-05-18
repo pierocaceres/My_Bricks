@@ -8,6 +8,8 @@
 
 My Bricks is a social platform for users to share their creations they have sitting at home. Whether it is your firs time building or you're a seasoned builder, we invite you to share with us the finish product, level of dificulty, timelapse images, and much more. My Bricks hopes to create a space for those who share a passion for building Legos together.
 
+![My Bricks Display](./ReadMe%20Assests/My%20Bricks%20navigation.gif)
+
 ## Technology
 
 My Bricks is a full-stack app that will be developed using:
