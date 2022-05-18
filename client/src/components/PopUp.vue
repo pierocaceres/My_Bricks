@@ -173,6 +173,7 @@ export default {
                 user_id: this.loggedUser.id
             }
             await axios.post(`${BASE_URL}/app/lego_set/create`, payload)
+            this.resetValues()
             this.dialog = false
         }
     }

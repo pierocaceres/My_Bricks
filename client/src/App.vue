@@ -1,6 +1,6 @@
 <template>
   <v-app>
-    <NavBar @updateLegoSets='updateLegoSets' @logOut='logOut' :getAllSets='getAllSets' :loggedUser="loggedUser"/>
+    <NavBar @updateLegoSets='updateLegoSets' @logOut='logOut' :getAllSets='getAllSets' :BASE_URL='BASE_URL' :loggedUser="loggedUser"/>
     
     <v-main>
       <router-view :legoSets="legoSets" :BASE_URL="this.BASE_URL" :loggedUser='this.loggedUser' @setUser='setUser'></router-view>
@@ -30,8 +30,8 @@ export default {
 
   data: () => ({
     legoSets: [],
-    BASE_URL: 'http://localhost:3001',
-    // BASE_URL: 'https://my-bricks-database.herokuapp.com',
+    // BASE_URL: 'http://localhost:3001',
+    BASE_URL: 'https://my-bricks-database.herokuapp.com',
     loggedUser: null,
   }),
   mounted() {

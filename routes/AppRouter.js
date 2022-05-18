@@ -10,7 +10,7 @@ Router.get('/session', controller.StripToken, controller.VerifyToken, controller
 Router.get('/lego_set/all', controller.GetAllLegoSets)
 Router.get('/lego_set/:lego_set_id', controller.StripToken, controller.VerifyToken, controller.GetLegoSetById)
 Router.get('/lego_set/user/:user_id', controller.GetLegoSetByUserId)
-Router.post('/lego_set/create', controller.StripToken, controller.VerifyToken,controller.CreateLegoSet)
+Router.post('/lego_set/create', controller.StripToken, controller.VerifyToken, controller.CreateLegoSet)
 Router.put('/lego_set/update/:lego_set_id', controller.StripToken, controller.VerifyToken, controller.EditLegoSet)
 Router.delete('/lego_set/delete/:lego_set_id', controller.StripToken, controller.VerifyToken, controller.DeleteLegoSet)
 

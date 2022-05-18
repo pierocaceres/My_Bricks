@@ -66,8 +66,6 @@
 import axios from 'axios'
 import PopUp from './PopUp.vue'
 
-const BASE_URL = 'http://localhost:3001'
-
 export default {
     props: ['BASE_URL', 'getAllSets', 'loggedUser'],
     data: () => ({
@@ -119,21 +117,21 @@ export default {
         },
         async sendSearch() {
             if(this.searchBy == 'Lego Set'){
-                const sets = await axios.get(`${BASE_URL}/app/search/set_name/${this.search}`)
+                const sets = await axios.get(`${this.BASE_URL}/app/search/set_name/${this.search}`)
                 if(sets.data.length > 0){
                     this.updateLegoSets(sets.data)
                     this.$router.push(`/feed`)
                 }
                 this.search = ''
             }else if(this.searchBy == 'Theme'){
-                const sets = await axios.get(`${BASE_URL}/app/search/theme/${this.search}`)
+                const sets = await axios.get(`${this.BASE_URL}/app/search/theme/${this.search}`)
                 if(sets.data.length > 0){
                     this.updateLegoSets(sets.data)
                     this.$router.push(`/feed`)
                 }
                 this.search = ''
             }else if(this.searchBy == 'Builder') {
-                const sets = await axios.get(`${BASE_URL}/app/search/builder/${this.search}`)
+                const sets = await axios.get(`${this.BASE_URL}/app/search/builder/${this.search}`)
                 if(sets.data.length > 0){
                     this.updateLegoSets(sets.data)
                     this.$router.push(`/feed`)
