@@ -171,7 +171,7 @@ export default {
                 build_progress: this.build_progress,
                 user_id: this.loggedUser.id
             }
-            await axios.post(`${BASE_URL}/app/lego_set/create`, payload)
+            await axios.post(`${this.BASE_URL}/app/lego_set/create`, payload)
             this.resetValues()
             this.dialog = false
         }
